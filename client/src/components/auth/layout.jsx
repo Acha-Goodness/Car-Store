@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import logoo from "../../../assets/logoo.png";
+import logoo from "../../assets/logoo.png";
 
 const layout = () => {
   return (
