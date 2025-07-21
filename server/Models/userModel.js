@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const bcrypt = require("bcryptjs");
 
 
 const userSchema = new mongoose.Schema({
@@ -43,7 +44,20 @@ const userSchema = new mongoose.Schema({
     passwordChangedAt: Date,
     otpToken: String,
     otpExpires: Date,
-})
+});
+
+// ENCRYPTING/HASHING USERS PASSWORD
+userSchema.pre("save", async function(){
+    // checking if password was modified
+    if(!this.isModified("password")) return next();
+
+    // if true then encrypt password
+    this.password = await bcrypt.hash(this.password, 12);
+
+    // delete passwordConfirm field
+    this.passwordConfirm = undefined;
+    next();
+});
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;
