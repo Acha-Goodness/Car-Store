@@ -1,13 +1,14 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+const userRouter = require("./Routes/userRoutes");
 
 const app = express();
 app.use(express.json());
 
 // IMPLEMENT CORS
 const corsOptions = {
-  origin: ["http://localhost:3000", "https://yourfrontend.com"], 
+  origin: ["http://localhost:5173", "https://yourfrontend.com"], 
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true, 
 };
@@ -19,6 +20,9 @@ if(process.env.NODE_ENV === "development"){
     app.use(morgan("dev"))
     console.log("My application is currently on", process.env.NODE_ENV)
 }
+
+// ENDPOINT ROUTING BY MOUNTING e.g Mounting the router
+app.use("/api/v1/users", userRouter);
 
 
 

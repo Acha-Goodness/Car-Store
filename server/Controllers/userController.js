@@ -1,9 +1,17 @@
 const User = require("../Models/userModel");
+const { createOTP } = require("../Utils/appFeatures");
 const catchAsync = require("../Utils/catchAsync");
 const Email = require("../Utils/email");
 
 exports.userSignUp = catchAsync( async (req, res, next) => {
-    const newUser = await User.create(req.body)
+    const { userName, email, password, confirmPassword } = req.body;
+
+    const newUser = await User.create({
+        name : userName, 
+        email, 
+        password, 
+        passwordConfirm : confirmPassword
+    });
 
     const OTPToken = await createOTP(newUser);
     await newUser.save({ validateBeforeSave: false });

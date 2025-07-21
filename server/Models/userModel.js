@@ -47,7 +47,7 @@ const userSchema = new mongoose.Schema({
 });
 
 // ENCRYPTING/HASHING USERS PASSWORD
-userSchema.pre("save", async function(){
+userSchema.pre("save", async function(next){
     // checking if password was modified
     if(!this.isModified("password")) return next();
 

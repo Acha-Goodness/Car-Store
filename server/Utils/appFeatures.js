@@ -1,5 +1,5 @@
 const crypto = require("crypto");
-const jwt = require("sonwebtoken");
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 exports.createOTP = async ( operator ) => {
