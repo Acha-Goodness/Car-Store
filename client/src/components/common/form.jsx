@@ -16,6 +16,7 @@ const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText 
       case "input":
         element = (
                     <Input
+                      className={`${buttonText === "Verify Otp" && "text-center"}`}
                       name={getControlItem.name}
                       placeholder={getControlItem.placeholder}
                       id={getControlItem.name}
@@ -82,15 +83,16 @@ const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText 
 
   return (
     <form onSubmit={onSubmit}>
-      <div className="flex flex-col gap-3">
+      <div className={`${buttonText === "Verify Otp" ? "grid grid-cols-4 gap-6 items-end w-full" : "flex flex-col gap-3"}`}>
         {
-          formControls.map(controlItem => <div className="grid w-full gap-1.5" key={controlItem.name}>
+          formControls.map(controlItem => 
+          <div className={`grid w-full gap-1.5 ${buttonText === "Verify Otp" && "w-[50px]"}`} key={controlItem.name}>
             <Label className="mb-1">{controlItem.Label}</Label>
             {renderInputsByComponentType(controlItem)}
           </div>)
         }
       </div>
-      <Button type="submit" className="mt-5 w-full bg-[#D4AF37] text-white">{buttonText || "Submit"}</Button>
+      <Button type="submit" className={`mt-5 w-full bg-[#D4AF37] text-white ${buttonText === "Verify Otp" && "w-full"}`}>{buttonText || "Submit"}</Button>
     </form>
   )
 }

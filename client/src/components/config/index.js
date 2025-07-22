@@ -46,3 +46,30 @@
             type : "password"
         }
     ]
+
+    export const verifyOtpControls = [
+        {
+            name : 1,
+            placeholder : "1",
+            componentType : "input",
+            type : "text"
+        },
+        {
+            name : 2,
+            placeholder : "2",
+            componentType : "input",
+            type : "text"
+        },
+        {
+            name : 3,
+            placeholder : "3",
+            componentType : "input",
+            type : "text"
+        }, 
+        {
+            name : 4, 
+            placeholder : "4",
+            componentType : "input",
+            type : "text"
+        }
+    ]

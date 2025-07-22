@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import AuthLayout from "./components/auth/layout";
 import AuthLogin from "./pages/auth/login";
 import AuthRegister from "./pages/auth/register";
+import VerifyOtp from "./pages/auth/verifyOtp";
 import AdminLayout from "./components/admin-view/layout";
 import AdminDashboard from "./pages/admin-view/dashboard";
 import AdminProducts from "./pages/admin-view/products";
@@ -15,8 +16,10 @@ import ShoppingAccount from "./pages/shopping-view/account";
 import NotFound from "./pages/not-found";
 import CheckAuth from "./components/common/check-auth";
 import UnauthPage from "./pages/unauth-page";
+import { useLocation } from "react-router-dom";
 
 function App() {
+  const location = useLocation();
 
   const isAuthenticated = false;
   const user = null;
@@ -24,7 +27,10 @@ function App() {
   return (
     <div className="flex flex-col overflow-hidden bg-white">
       {/* COMMON COMPONENT */}
+      {
+      location.pathname.includes("auth") ? <></> :
       <h1>Hearder Component</h1>
+      }
       <Routes>
           <Route path="/auth" element={
             <CheckAuth isAuthenticated={isAuthenticated} user={user}>
@@ -33,6 +39,7 @@ function App() {
           }>
               <Route path="login" element={<AuthLogin/>}/>
               <Route path="register" element={<AuthRegister/>}/>
+              <Route path="verifyOtp" element={<VerifyOtp/>}/>
           </Route>
           <Route path="/admin" element={
             <CheckAuth isAuthenticated={isAuthenticated} user={user}>
