@@ -18,6 +18,15 @@ export const registerUser = createAsyncThunk("/auth/register",
     }
 )
 
+export const verifyOtp = createAsyncThunk("/auth/verifyOtp",
+    async(formData) => {
+        const response = await axios.post("http://localhost:3000/api/v1/users/userVerifyOTP", formData, {
+            withCredentials : true
+        });
+        return response.data
+    }
+)
+
 const authSlice = createSlice({
     name : "auth",
     initialState,
