@@ -9,3 +9,24 @@ exports.createOTP = async ( operator ) => {
     operator.otpExpires = Date.now() + 10 * 60 * 60;
     return OTP
 };
+
+const jwtAuthToken = id => {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: process.env.JWT_EXPIRES_IN
+    })
+}
+
+exports.sendJWTToken = ( operator, statusCode, res ) => {
+    const JWTToken = jwtAuthToken(operator._id);
+
+    operator.password = undefined;
+
+    res.status(statusCode).json({
+        status: "success",
+        JWTToken: JWTToken,
+        message: "Login successful",
+        data:{
+            user:operator
+        }
+    })
+};
