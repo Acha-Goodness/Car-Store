@@ -37,6 +37,10 @@ const AuthLogin = () => {
         <div className="mx-auto w-full max-w-md space-y-6">
             <div className="text-center">
                 <h1 className="text-3xl font-bold tracking-tight text-white">Sign in to your account</h1>
+                <div className="flex justify-center items-center mt-2">
+                    <p className="text-[white]">Don't have an account</p>
+                    <Link className="font-medium ml-2 text-[#D4AF37] hover:underline" to="/auth/register">Register</Link>
+            </div>
             </div>
             <CommonForm
                 formControls={loginFormControls}
@@ -47,8 +51,8 @@ const AuthLogin = () => {
                 onSubmit={onSubmit}
             />
             <div className="flex justify-end items-center mt-2">
-                <p className="text-[white]">Don't have an account</p>
-                <Link className="font-medium ml-2 text-[#D4AF37] hover:underline" to="/auth/register">Register</Link>
+                <p className="text-[white]">Forgot password?</p>
+                <Link className="font-medium ml-2 text-[#D4AF37] hover:underline" to="/auth/resetPassword">Reset Password</Link>
             </div>
         </div>
     );

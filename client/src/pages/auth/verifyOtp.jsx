@@ -9,13 +9,13 @@ import { toast } from 'sonner';
 
 
 const VerifyOtp = () => {
-    const { isLoading } = useSelector(state => state.auth) 
-  const [ formData, setFormData ] = useState("");
+const { isLoading } = useSelector(state => state.auth) 
+const [ formData, setFormData ] = useState("");
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+const dispatch = useDispatch();
+const navigate = useNavigate();
 
-  const onSubmit = (e) => {
+const onSubmit = (e) => {
     e.preventDefault();
 
     const otp = Object.values(formData).join('');
@@ -39,7 +39,6 @@ const VerifyOtp = () => {
                 <h1 className="text-3xl font-bold tracking-tight text-white">Verify OTP</h1>
                 <div className="flex justify-center items-center mt-2">
                     <p className="text-[white]">Please verify your email</p>
-                    <Link className="font-medium ml-2 text-[#D4AF37] hover:underline" to="/auth/login">Login</Link>
                 </div>
             </div>
             <div className="w-[60%] mx-auto">

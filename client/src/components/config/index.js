@@ -73,3 +73,13 @@
             type : "text"
         }
     ]
+
+    export const resetPasswordControls = [
+        {
+            name : "email",
+            label : "Email",
+            placeholder : "Enter your email",
+            componentType : "input",
+            type : "email"
+        }
+    ]
