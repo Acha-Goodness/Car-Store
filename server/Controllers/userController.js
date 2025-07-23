@@ -3,7 +3,7 @@ const AppError = require("../Utils/appError");
 const { createOTP } = require("../Utils/appFeatures");
 const catchAsync = require("../Utils/catchAsync");
 const Email = require("../Utils/email");
-const { verifyOTP, login } = require("./handlerFactory");
+const { verifyOTP, login, forgotPassword } = require("./handlerFactory");
 
 exports.userSignUp = catchAsync( async (req, res, next) => {
     const { userName, email, password, confirmPassword } = req.body;
@@ -55,3 +55,5 @@ exports.userSignUp = catchAsync( async (req, res, next) => {
 exports.userVerifyOTP = verifyOTP(User);
 
 exports.userLogin = login(User);
+
+exports.userForgetPassword = forgotPassword(User)
