@@ -26,12 +26,12 @@ const AuthRegister = () => {
         dispatch(registerUser(formData))
           .then((res) => {
             if(res?.payload?.status === "success"){
-                toast(res?.payload?.message);
+                toast(res.payload.message);
                 navigate("/auth/verifyOtp");
-            }else if(res?.payload?.status === "false") {
-                throw new Error(res.payload.message || "Registration failed");
-            }else{
+            }else if(res?.error?.message === "Rejected") {
                 throw new Error(res.payload || "Registration failed");
+            }else{
+                throw new Error("Registration failed");
             };
         }).catch((err) => {
             toast(err.message);

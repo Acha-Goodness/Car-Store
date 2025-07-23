@@ -16,17 +16,38 @@ export const registerUser = createAsyncThunk("/auth/register",
             });
             return response.data;
         }catch (err) {
-        const message =
+            const message =
             err.response?.data?.message || "Something went wrong during registration";
-        return rejectWithValue(message);
+            return rejectWithValue(message);
         }
     }
 )
 
 export const verifyOtp = createAsyncThunk("/auth/verifyOtp",
-    async(otp) => {
-        const response = await axios.post("http://localhost:3000/api/v1/users/userVerifyOTP", {otp});
-        return response.data;
+    async(otp, { rejectWithValue }) => {
+        try{
+            const response = await axios.post("http://localhost:3000/api/v1/users/userVerifyOTP", {otp});
+            return response.data;
+        }catch (err) {
+            const message =
+            err.response?.data?.message || "Something went wrong during registration";
+            return rejectWithValue(message);
+        }
+    }
+)
+
+export const login = createAsyncThunk("/auth/login",
+    async(formData, { rejectWithValue }) => {
+        try{
+            const response = await axios.post("http://localhost:3000/api/v1/users/userLogin", formData, {
+                withCredentials : true
+            });
+            return response.data
+        }catch (err) {
+            const message =
+            err.response?.data?.message || "Something went wrong during login";
+            return rejectWithValue(message);
+        }
     }
 )
 
@@ -41,7 +62,7 @@ const authSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(registerUser.pending, (state) => {
             state.isLoading = true;
-        }).addCase(registerUser.fulfilled, (state, action) => {
+        }).addCase(registerUser.fulfilled, (state) => {
             state.isLoading = false;
             state.user = null;
             state.isAuthenticated = false
@@ -59,7 +80,19 @@ const authSlice = createSlice({
         }).addCase(verifyOtp.rejected, (state, action) => {
             state.isLoading = false;
             state.user = null;
-            state.isAuthenticated = false
+            state.error = action.payload;
+            state.isAuthenticated = false;
+        }).addCase(login.pending, (state) => {
+            state.isLoading = true;
+        }).addCase(login.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.user = action.payload;
+            state.isAuthenticated = true;
+        }).addCase(login.rejected, (state, action) => {
+            state.isLoading = false;
+            state.user = null;
+            state.error = action.payload;
+            state.isAuthenticated = false;
         })
     }
 })

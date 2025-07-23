@@ -2,6 +2,10 @@ import CommonForm from "@/components/common/form";
 import { loginFormControls } from "@/components/config";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { login } from "@/store/auth-slice";
+import { toast } from "sonner";
 
 const initialState = {
     email : "",
@@ -10,9 +14,23 @@ const initialState = {
 
 const AuthLogin = () => {
     const [ formData, setFormData ] = useState(initialState);
+    const dispatch = useDispatch();
+    const { isLoading } = useSelector((state) => state.auth);
     
-    const onSubmit = () => {
-
+    const onSubmit = (e) => {
+        e.preventDefault();
+        dispatch(login(formData))
+        .then((res) => {
+            if(res?.payload?.status === "success"){
+                toast(res.payload.message)
+            }else if(res?.error?.message === "Rejected"){
+                throw new Error(res.payload || "Registration failed");
+            }else{
+                throw new Error("Registration failed");
+            }
+        }).catch((err) => {
+            toast(err.message)
+        })
     }
 
     return(
@@ -25,6 +43,7 @@ const AuthLogin = () => {
                 buttonText={"Login"}
                 formData={formData}
                 setFormData={setFormData}
+                isLoading={isLoading}
                 onSubmit={onSubmit}
             />
             <div className="flex justify-end items-center mt-2">

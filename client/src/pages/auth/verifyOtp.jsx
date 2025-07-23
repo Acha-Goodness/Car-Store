@@ -21,11 +21,10 @@ const VerifyOtp = () => {
     const otp = Object.values(formData).join('');
     dispatch(verifyOtp(otp))
     .then((res) => {
-        console.log(res);
-        if(res?.payload.status === "success"){
+        if(res?.payload?.status === "success"){
             toast(res?.payload?.message);
-        }else if(res.payload.status == "false"){
-            throw new Error(res.payload.message || "Registration failed");
+        }else if(res?.error?.message === "Rejected"){
+            throw new Error(res.payload || "Registration failed");
         }else{
             throw new Error("Registration failed")
         }
