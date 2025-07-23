@@ -24,9 +24,9 @@ const onSubmit = (e) => {
         if(res?.payload?.status === "success"){
             toast(res?.payload?.message);
         }else if(res?.error?.message === "Rejected"){
-            throw new Error(res.payload || "Registration failed");
+            throw new Error(res.payload || "Verification failed");
         }else{
-            throw new Error("Registration failed")
+            throw new Error("Verification failed")
         }
     }).catch((err) => {
         toast(err.message);

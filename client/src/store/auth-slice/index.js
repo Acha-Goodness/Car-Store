@@ -51,6 +51,22 @@ export const login = createAsyncThunk("/auth/login",
     }
 )
 
+export const forgotPassword = createAsyncThunk("/auth/forgotPassword",
+    async(formData, { rejectWithValue }) => {
+        try{
+            const response = await axios.post("http://localhost:3000/api/v1/users/userForgotPassword", formData, {
+                withCredentials : true
+            });
+            return response.data
+        }catch (err) {
+            console.log("REDUX ERROR: ", err)
+            const message =
+            err.response?.data?.message || "Something went wrong";
+            return rejectWithValue(message);
+        }
+    }
+)
+
 const authSlice = createSlice({
     name : "auth",
     initialState,
@@ -89,6 +105,16 @@ const authSlice = createSlice({
             state.user = action.payload;
             state.isAuthenticated = true;
         }).addCase(login.rejected, (state, action) => {
+            state.isLoading = false;
+            state.user = null;
+            state.error = action.payload;
+            state.isAuthenticated = false;
+        }).addCase(forgotPassword.pending, (state) => {
+            state.isLoading = true;
+        }).addCase(forgotPassword.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.user = action.payload; 
+        }).addCase(forgotPassword.rejected, (state, action) => {
             state.isLoading = false;
             state.user = null;
             state.error = action.payload;

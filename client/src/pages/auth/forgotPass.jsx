@@ -2,6 +2,10 @@ import { useState } from 'react'
 import { forgotPasswordControls } from '@/components/config';
 import { Link } from 'react-router-dom';
 import CommonForm from '@/components/common/form';
+import { forgotPassword } from '@/store/auth-slice';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { toast } from 'sonner';
 
 const initialState = {
     email : ""
@@ -10,9 +14,26 @@ const initialState = {
 const ForgotPass = () => {
   const  [ formData, setFormData ] = useState(initialState);
 
-  const onSubmit = (e) => {
-    e.preventDefault()
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.auth)
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(forgotPassword(formData))
+    .then((res) => {
+        console.log(res)
+        if(res?.payload?.status === "success"){
+            toast(res.payload.message)
+        }else if(res?.error?.message === "Rejected"){
+            throw new Error(res.payload || "Email failed")
+        }else{
+            throw new Error("Email failed")
+        }
+        console.log(res)
+    }).catch((err) => {
+        toast(err.message)
+    })
   }
 
   return (
@@ -28,9 +49,10 @@ const ForgotPass = () => {
                 buttonText={"Send"}
                 formData={formData}
                 setFormData={setFormData}
+                isLoading={isLoading}
                 onSubmit={onSubmit}
             />
-             <div className="flex justify-end items-center mt-2">
+             <div className="flex justify-center items-center mt-2">
                  <p className="text-[white]">Return to</p>
                 <Link className="font-medium ml-2 text-[#D4AF37] hover:underline" to="/auth/login">Login</Link>
              </div>
