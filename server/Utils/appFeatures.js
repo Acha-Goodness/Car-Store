@@ -30,3 +30,7 @@ exports.sendJWTToken = ( operator, statusCode, res ) => {
         }
     })
 };
+
+exports.correctPassword = async function(candidatePassword, userPassword){
+    return bcrypt.compare(candidatePassword, userPassword)
+}
