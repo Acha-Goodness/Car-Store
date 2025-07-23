@@ -39,7 +39,7 @@ exports.forgotPassword = Model => catchAsync( async (req, res, next) => {
     const doc = await Model.findOne({email: req.body.email});
 
     // CHECK IF USER EXIST
-    if(!doc) return next(new AppError("There is no user with email", 404, res))
+    if(!doc) return next(new AppError("There is no user with this email", 404, res))
 
     // GENERATE RESET TOKEN
     const resetToken = await createOTP(doc);
