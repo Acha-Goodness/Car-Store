@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { resetPasswordControls } from '@/components/config';
+import { forgotPasswordControls } from '@/components/config';
 import { Link } from 'react-router-dom';
 import CommonForm from '@/components/common/form';
 
@@ -7,7 +7,7 @@ const initialState = {
     email : ""
 }
 
-const ResetPass = () => {
+const ForgotPass = () => {
   const  [ formData, setFormData ] = useState(initialState);
 
   const onSubmit = (e) => {
@@ -24,7 +24,7 @@ const ResetPass = () => {
                 </div>
             </div>
             <CommonForm
-                formControls={resetPasswordControls}
+                formControls={forgotPasswordControls}
                 buttonText={"Send"}
                 formData={formData}
                 setFormData={setFormData}
@@ -38,4 +38,4 @@ const ResetPass = () => {
   )
 }
 
-export default ResetPass;
+export default ForgotPass;

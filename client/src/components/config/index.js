@@ -74,7 +74,7 @@
         }
     ]
 
-    export const resetPasswordControls = [
+    export const forgotPasswordControls = [
         {
             name : "email",
             label : "Email",

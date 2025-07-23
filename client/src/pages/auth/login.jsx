@@ -52,7 +52,7 @@ const AuthLogin = () => {
             />
             <div className="flex justify-end items-center mt-2">
                 <p className="text-[white]">Forgot password?</p>
-                <Link className="font-medium ml-2 text-[#D4AF37] hover:underline" to="/auth/resetPassword">Reset Password</Link>
+                <Link className="font-medium ml-2 text-[#D4AF37] hover:underline" to="/auth/forgotPassword">Reset Password</Link>
             </div>
         </div>
     );
