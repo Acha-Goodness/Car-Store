@@ -2,19 +2,36 @@ import { useState } from 'react';
 import CommonForm from "@/components/common/form";
 import { verifyOtpControls } from '@/components/config';
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from 'react-redux';
+import { verifyOtp } from '@/store/auth-slice';
+import { toast } from 'sonner';
 
-const initialState = {
-    // userName : "",
-    // email : "",
-    // password : "",
-    // confirmPassword : ""
-}
 
 const VerifyOtp = () => {
-  const [ formData, setFormData ] = useState(initialState);
+    const { isLoading } = useSelector(state => state.auth) 
+  const [ formData, setFormData ] = useState("");
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onSubmit = (e) => {
     e.preventDefault();
+
+    const otp = Object.values(formData).join('');
+    dispatch(verifyOtp(otp))
+    .then((res) => {
+        console.log(res);
+        if(res?.payload.status === "success"){
+            toast(res?.payload?.message);
+        }else if(res.payload.status == "false"){
+            throw new Error(res.payload.message || "Registration failed");
+        }else{
+            throw new Error("Registration failed")
+        }
+    }).catch((err) => {
+        toast(err.message);
+    })
   }
 
   return (
@@ -32,6 +49,7 @@ const VerifyOtp = () => {
                     buttonText={"Verify Otp"}
                     formData={formData}
                     setFormData={setFormData}
+                    isLoading={isLoading}
                     onSubmit={onSubmit}
                 />
              </div>

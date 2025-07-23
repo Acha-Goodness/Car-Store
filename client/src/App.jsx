@@ -17,12 +17,12 @@ import NotFound from "./pages/not-found";
 import CheckAuth from "./components/common/check-auth";
 import UnauthPage from "./pages/unauth-page";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function App() {
+  const { user, isAuthenticated} = useSelector( (state) => state.auth)
   const location = useLocation();
 
-  const isAuthenticated = false;
-  const user = null;
 
   return (
     <div className="flex flex-col overflow-hidden bg-white">

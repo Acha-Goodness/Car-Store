@@ -4,8 +4,9 @@ import { Select, SelectContent, SelectTrigger, SelectValue } from '../ui/select'
 import { Textarea } from '../ui/textarea';
 import { Label } from '../ui/label';
 import { Button } from '../ui/button';
+import { MoonLoader } from 'react-spinners';
 
-const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText }) => {
+const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText, isLoading }) => {
 
   const renderInputsByComponentType = (getControlItem) => {
 
@@ -22,6 +23,7 @@ const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText 
                       id={getControlItem.name}
                       type={getControlItem.type}
                       value={value}
+                      required
                       onChange={ event => setFormData({
                         ...formData,
                         [getControlItem.name] : event.target.value
@@ -55,6 +57,7 @@ const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText 
                       placeholder={getControlItem.placeholder}
                       id={getControlItem.name}
                       value={value}
+                      required
                       onChange={ event => setFormData({
                         ...formData,
                         [getControlItem.name] : event.target.value
@@ -70,6 +73,7 @@ const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText 
                       id={getControlItem.name}
                       type={getControlItem.type}
                       value={value}
+                      required
                       onChange={ event => setFormData({
                         ...formData,
                         [getControlItem.name] : event.target.value
@@ -85,14 +89,14 @@ const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText 
     <form onSubmit={onSubmit}>
       <div className={`${buttonText === "Verify Otp" ? "grid grid-cols-4 gap-6 items-end w-full" : "flex flex-col gap-3"}`}>
         {
-          formControls.map(controlItem => 
-          <div className={`grid w-full gap-1.5 ${buttonText === "Verify Otp" && "w-[50px]"}`} key={controlItem.name}>
+          formControls.map((controlItem, index) => 
+          <div className={`grid w-full gap-1.5 ${buttonText === "Verify Otp" && "w-[50px]"}`} key={index}>
             <Label className="mb-1">{controlItem.Label}</Label>
             {renderInputsByComponentType(controlItem)}
           </div>)
         }
       </div>
-      <Button type="submit" className={`mt-5 w-full bg-[#D4AF37] text-white ${buttonText === "Verify Otp" && "w-full"}`}>{buttonText || "Submit"}</Button>
+      <Button type="submit" className={`mt-5 w-full bg-[#D4AF37] text-white ${buttonText === "Verify Otp" && "w-full"}`}>{isLoading && <MoonLoader color="#ffffff" size={20} />} {buttonText || "Submit"}</Button>
     </form>
   )
 }

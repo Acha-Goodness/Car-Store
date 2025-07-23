@@ -4,6 +4,7 @@ import { registerFormControls } from "@/components/config";
 import { registerUser } from "@/store/auth-slice";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { toast } from "sonner"
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
 }
 
 const AuthRegister = () => {
+    const { isLoading } = useSelector(state => state.auth)
     const [ formData, setFormData ] = useState(initialState);
     const dispatch = useDispatch();
     const navigate = useNavigate()
@@ -29,7 +31,7 @@ const AuthRegister = () => {
             }else if(res?.payload?.status === "false") {
                 throw new Error(res.payload.message || "Registration failed");
             }else{
-                throw new Error("Registration failed");
+                throw new Error(res.payload || "Registration failed");
             };
         }).catch((err) => {
             toast(err.message);
@@ -50,6 +52,7 @@ const AuthRegister = () => {
                 buttonText={"Sign Up"}
                 formData={formData}
                 setFormData={setFormData}
+                isLoading={isLoading}
                 onSubmit={onSubmit}
             />
         </div>

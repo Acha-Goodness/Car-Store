@@ -4,26 +4,29 @@ import axios from "axios";
 const initialState = {
     isAuthenticated : false,
     isLoading : false,
-    user : null
+    user : null,
+    error: null
 };
 
-axios
-
 export const registerUser = createAsyncThunk("/auth/register",
-    async(formData) => {
-        const response = await axios.post("http://localhost:3000/api/v1/users/userSignUp", formData, {
-            withCredentials : true
-        });
-        return response.data;
+    async(formData, { rejectWithValue }) => {
+        try{
+            const response = await axios.post("http://localhost:3000/api/v1/users/userSignUp", formData, {
+                withCredentials : true
+            });
+            return response.data;
+        }catch (err) {
+        const message =
+            err.response?.data?.message || "Something went wrong during registration";
+        return rejectWithValue(message);
+        }
     }
 )
 
 export const verifyOtp = createAsyncThunk("/auth/verifyOtp",
-    async(formData) => {
-        const response = await axios.post("http://localhost:3000/api/v1/users/userVerifyOTP", formData, {
-            withCredentials : true
-        });
-        return response.data
+    async(otp) => {
+        const response = await axios.post("http://localhost:3000/api/v1/users/userVerifyOTP", {otp});
+        return response.data;
     }
 )
 
@@ -37,7 +40,7 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(registerUser.pending, (state) => {
-            state.isLoading = true
+            state.isLoading = true;
         }).addCase(registerUser.fulfilled, (state, action) => {
             state.isLoading = false;
             state.user = null;
@@ -45,7 +48,18 @@ const authSlice = createSlice({
         }).addCase(registerUser.rejected, (state, action) => {
             state.isLoading = false;
             state.user = null;
+            state.error = action.payload;
             state.isAuthenticated = false;
+        }).addCase(verifyOtp.pending, (state) => {
+            state.isLoading = true;
+        }).addCase(verifyOtp.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.user = action.payload;
+            state.isAuthenticated = true;
+        }).addCase(verifyOtp.rejected, (state, action) => {
+            state.isLoading = false;
+            state.user = null;
+            state.isAuthenticated = false
         })
     }
 })

@@ -17,7 +17,7 @@
         {
             name : "password",
             label : "Password",
-            placeholder : "Enter your password",
+            placeholder : "Enter your password: 8 characters",
             componentType : "input",
             type : "password"
         },
