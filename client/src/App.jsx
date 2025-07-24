@@ -4,6 +4,7 @@ import AuthLogin from "./pages/auth/login";
 import AuthRegister from "./pages/auth/register";
 import VerifyOtp from "./pages/auth/verifyOtp";
 import ForgotPass from "./pages/auth/forgotPass";
+import ResetPass from "./pages/auth/resetPass";
 import AdminLayout from "./components/admin-view/layout";
 import AdminDashboard from "./pages/admin-view/dashboard";
 import AdminProducts from "./pages/admin-view/products";
@@ -42,6 +43,7 @@ function App() {
               <Route path="register" element={<AuthRegister/>}/>
               <Route path="verifyOtp" element={<VerifyOtp/>}/>
               <Route path="forgotPassword" element={<ForgotPass/>}/>
+              <Route path="resetPassword" element={<ResetPass/>}/>
           </Route>
           <Route path="/admin" element={
             <CheckAuth isAuthenticated={isAuthenticated} user={user}>

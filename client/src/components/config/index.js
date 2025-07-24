@@ -21,7 +21,7 @@
             componentType : "input",
             type : "password"
         },
-          {
+        {
             name : "confirmPassword",
             label : "Confirm Password",
             placeholder : "Confirm Your password",
@@ -81,5 +81,22 @@
             placeholder : "Enter your email",
             componentType : "input",
             type : "email"
+        }
+    ]
+
+    export const resetPasswordControls = [
+        {
+            name : "password",
+            label : "Password",
+            placeholder : "Enter your password: 8 characters",
+            componentType : "input",
+            type : "password"
+        },
+        {
+            name : "confirmPassword",
+            label : "Confirm Password",
+            placeholder : "Confirm Your password",
+            componentType : "input",
+            type : "password"
         }
     ]
