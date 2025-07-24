@@ -86,16 +86,23 @@
 
     export const resetPasswordControls = [
         {
+            name : "otp",
+            label : "OTP",
+            placeholder : "Enter OTP Code",
+            componentType : "input",
+            type : "text"
+        },
+        {
             name : "password",
             label : "Password",
-            placeholder : "Enter your password: 8 characters",
+            placeholder : "Enter new password: 8 characters",
             componentType : "input",
             type : "password"
         },
         {
             name : "confirmPassword",
             label : "Confirm Password",
-            placeholder : "Confirm Your password",
+            placeholder : "Confirm new password",
             componentType : "input",
             type : "password"
         }

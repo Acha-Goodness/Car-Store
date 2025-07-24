@@ -6,6 +6,7 @@ import { forgotPassword } from '@/store/auth-slice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
 
 const initialState = {
     email : ""
@@ -15,6 +16,7 @@ const ForgotPass = () => {
   const  [ formData, setFormData ] = useState(initialState);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { isLoading } = useSelector((state) => state.auth)
 
   const onSubmit = (e) => {
@@ -22,15 +24,14 @@ const ForgotPass = () => {
 
     dispatch(forgotPassword(formData))
     .then((res) => {
-        console.log(res)
         if(res?.payload?.status === "success"){
-            toast(res.payload.message)
+            toast(res.payload.message);
+            navigate("/auth/resetPassword");
         }else if(res?.error?.message === "Rejected"){
             throw new Error(res.payload || "Email failed")
         }else{
             throw new Error("Email failed")
         }
-        console.log(res)
     }).catch((err) => {
         toast(err.message)
     })

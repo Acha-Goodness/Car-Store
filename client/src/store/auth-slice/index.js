@@ -59,6 +59,21 @@ export const forgotPassword = createAsyncThunk("/auth/forgotPassword",
             });
             return response.data
         }catch (err) {
+            const message =
+            err.response?.data?.message || "Something went wrong";
+            return rejectWithValue(message);
+        }
+    }
+)
+
+export const resetPassword = createAsyncThunk("/auth/resetPassword",
+    async(formData, { rejectWithValue }) => {
+        try{
+            const response = await axios.post("http://localhost:3000/api/v1/users/userResetPassword", formData, {
+                withCredentials : true
+            });
+            return response.data
+        }catch (err) {
             console.log("REDUX ERROR: ", err)
             const message =
             err.response?.data?.message || "Something went wrong";
@@ -71,9 +86,7 @@ const authSlice = createSlice({
     name : "auth",
     initialState,
     reducer  : {
-        setUser: (state, action) => {
-
-        }
+        setUser: (state, action) => {}
     },
     extraReducers: (builder) => {
         builder.addCase(registerUser.pending, (state) => {
@@ -114,7 +127,19 @@ const authSlice = createSlice({
         }).addCase(forgotPassword.fulfilled, (state, action) => {
             state.isLoading = false;
             state.user = action.payload; 
+            state.isAuthenticated = false;
         }).addCase(forgotPassword.rejected, (state, action) => {
+            state.isLoading = false;
+            state.user = null;
+            state.error = action.payload;
+            state.isAuthenticated = false;
+        }).addCase(resetPassword.pending, (state) => {
+            state.isLoading = true;
+        }).addCase(resetPassword.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.user = action.payload;
+            state.isAuthenticated = true;
+        }).addCase(resetPassword.rejected, (state, action) => {
             state.isLoading = false;
             state.user = null;
             state.error = action.payload;
