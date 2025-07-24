@@ -62,25 +62,35 @@ exports.forgotPassword = Model => catchAsync( async (req, res, next) => {
     }
 });
 
-exports.resetPassword = Model => catchAsync( async (eq, res, next) => {
+exports.resetPassword = Model => catchAsync( async (req, res, next) => {
     // GET USER BASED ON TOKEN
     const hashedToken = crypto.createHash("sha256").update(req.body.otp).digest("hex");
 
     const doc = await Model.findOne({$and: [{otpToken: hashedToken}, {otpExpires: {$gt: new Date()}}]});
 
-    // IF TOKEN HAS NOT EXPIRED AND THERE IS A USER, SET THE NEW PASSWORD
-    if(!doc) return next(new AppError("Token is invalid or has expired", 400, res));
+    try{
+        // IF TOKEN HAS NOT EXPIRED AND THERE IS A USER, SET THE NEW PASSWORD
+        if(!doc) return next(new AppError("Token is invalid or has expired", 400, res));
+  
+        doc.password = req.body.password;
+        doc.passwordConfirm = req.body.confirmPassword;
+        doc.otpToken = undefined;
+        doc.otpExpires = undefined;
 
-    doc.password = req.body.password;
-    doc.passwordConfirm = req.body.confirmPassword;
-    doc.otpToken = undefined;
-    doc.otpExpires = undefined;
+        await doc.save();
+    }catch(err){
+        // Check for Mongoose validation error
+        if(err.name === "ValidationError"){
+            // Extract the passwordConfirm error message if present
+            const errors = Object.values(err.errors).map(el => el.message);
+            return next(new AppError(errors.join('. '), 500, res))
+        }
 
-    await doc.save();
+    }
 
     // UPDATE changePasswordAt property for user
     // MIDDLE WARE FUNCTION
 
     // LOG THE USER IN SEND JWT
-     sendJWTToken(doc, 201, res);
+    sendJWTToken(doc, 201, res);
 })
