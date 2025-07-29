@@ -3,11 +3,14 @@ import heroVid from "../../assets/heroVid.webm";
 import logoIcon from "../../assets/logoIcon.png";
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
-import { MdPerson4, MdKeyboardArrowDown, MdQuestionMark, MdOutlineShoppingCart} from "react-icons/md";
+import { MdPerson4, MdKeyboardArrowDown, MdQuestionMark, MdOutlineShoppingCart, MdCancelScheduleSend} from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
-import { FaBoxOpen } from "react-icons/fa";
-import { GiSelfLove } from "react-icons/gi";
+import { FaBoxOpen, FaHandsHelping } from "react-icons/fa";
+import { GiSelfLove, GiReturnArrow } from "react-icons/gi";
 import { SiGnuprivacyguard } from "react-icons/si";
+import { BsBasket2 } from "react-icons/bs";
+import { IoCard } from "react-icons/io5";
+import { GoStopwatch } from "react-icons/go";
 
 const Header = () => {
   return (
@@ -50,12 +53,12 @@ const Header = () => {
                                 <Button className="w-full bg-transperent text-[#5F2780] cursor-pointer"><MdQuestionMark />Help<MdKeyboardArrowDown/></Button>
                                   <nav className='absolute bg-[white] p-[10px] top-[22%] w-[13%] right-[1%] rounded-[5px]'>
                                     <ul className='text-[#5F2780]'>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><MdPerson4 className='mr-[15px] text-[25px]'/>Help Center</li>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><FaBoxOpen className='mr-[15px] text-[25px]'/>Place and order</li>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><GiSelfLove className='mr-[15px] text-[25px]'/>Payment options</li>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><MdPerson4 className='mr-[15px] text-[25px]'/>Track and order</li>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><FaBoxOpen className='mr-[15px] text-[25px]'/>Cancel and orders</li>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><GiSelfLove className='mr-[15px] text-[25px]'/>Returns & Refunds</li>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><FaHandsHelping className='mr-[15px] text-[25px]'/>Help Center</li>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><BsBasket2 className='mr-[15px] text-[25px]'/>Place and order</li>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><IoCard className='mr-[15px] text-[25px]'/>Payment options</li>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><GoStopwatch className='mr-[15px] text-[25px]'/>Track and order</li>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><MdCancelScheduleSend className='mr-[15px] text-[25px]'/>Cancel and orders</li>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><GiReturnArrow className='mr-[15px] text-[25px]'/>Returns & Refunds</li>
                                     </ul>
                                 </nav>
                             </div>
