@@ -21,7 +21,7 @@ export const registerUser = createAsyncThunk("/auth/register",
             return rejectWithValue(message);
         }
     }
-)
+);
 
 export const verifyOtp = createAsyncThunk("/auth/verifyOtp",
     async(otp, { rejectWithValue }) => {
@@ -34,7 +34,7 @@ export const verifyOtp = createAsyncThunk("/auth/verifyOtp",
             return rejectWithValue(message);
         }
     }
-)
+);
 
 export const login = createAsyncThunk("/auth/login",
     async(formData, { rejectWithValue }) => {
@@ -49,7 +49,7 @@ export const login = createAsyncThunk("/auth/login",
             return rejectWithValue(message);
         }
     }
-)
+);
 
 export const forgotPassword = createAsyncThunk("/auth/forgotPassword",
     async(formData, { rejectWithValue }) => {
@@ -64,7 +64,7 @@ export const forgotPassword = createAsyncThunk("/auth/forgotPassword",
             return rejectWithValue(message);
         }
     }
-)
+);
 
 export const resetPassword = createAsyncThunk("/auth/resetPassword",
     async(formData, { rejectWithValue }) => {
@@ -74,13 +74,32 @@ export const resetPassword = createAsyncThunk("/auth/resetPassword",
             });
             return response.data
         }catch (err) {
+            const message =
+            err.response?.data?.message || "Something went wrong";
+            return rejectWithValue(message);
+        }
+    }
+);
+
+export const checkAuth = createAsyncThunk("/auth/checkauth",
+    async(_, { rejectWithValue }) => {
+        try{
+            const response = await axios.get("http://localhost:3000/api/v1/users/check-auth", {
+                withCredentials : true,
+                headers : {
+                    "Cache-Control" : "no-store, no-cache, must-revalidate, proxy-revalidate",
+                    // Expires : "0"
+                }
+            });
+            return response.data
+        }catch (err) {
             console.log("REDUX ERROR: ", err)
             const message =
             err.response?.data?.message || "Something went wrong";
             return rejectWithValue(message);
         }
     }
-)
+);
 
 const authSlice = createSlice({
     name : "auth",
@@ -140,6 +159,17 @@ const authSlice = createSlice({
             state.user = action.payload;
             state.isAuthenticated = true;
         }).addCase(resetPassword.rejected, (state, action) => {
+            state.isLoading = false;
+            state.user = null;
+            state.error = action.payload;
+            state.isAuthenticated = false;
+        }).addCase(checkAuth.pending, (state) => {
+            state.isLoading = true;
+        }).addCase(checkAuth.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.user = action.payload;
+            state.isAuthenticated = action.payload.status;
+        }).addCase(checkAuth.rejected, (state, action) => {
             state.isLoading = false;
             state.user = null;
             state.error = action.payload;

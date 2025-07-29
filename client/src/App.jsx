@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import AuthLayout from "./components/auth/layout";
 import AuthLogin from "./pages/auth/login";
@@ -18,20 +19,36 @@ import ShoppingAccount from "./pages/shopping-view/account";
 import NotFound from "./pages/not-found";
 import CheckAuth from "./components/common/check-auth";
 import UnauthPage from "./pages/unauth-page";
-import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { checkAuth } from "./store/auth-slice";
+import { toast } from "sonner";
 
 function App() {
   const { user, isAuthenticated} = useSelector( (state) => state.auth)
-  const location = useLocation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkAuth())
+    .then((res) => {
+      if(res?.payload?.status === "success"){
+        toast(res.payload.message)
+      }else if(res?.error?.message === "Rejected"){
+        throw new Error(res.payload || "Authentication failed");
+      }else{
+        throw new Error("Authentication Failed")
+      }
+    }).catch((err) => {
+      toast(err.message)
+    })
+  }, [dispatch]);
 
 
   return (
     <div className="flex flex-col overflow-hidden bg-white">
       {/* COMMON COMPONENT */}
       {
-      location.pathname.includes("auth") ? <></> :
-      <h1>Hearder Component</h1>
+        location.pathname.includes("auth") ? <></> :
+        <h1>Hearder Component</h1>
       }
       <Routes>
           <Route path="/auth" element={

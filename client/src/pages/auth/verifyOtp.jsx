@@ -9,7 +9,7 @@ import { toast } from 'sonner';
 
 
 const VerifyOtp = () => {
-const { isLoading } = useSelector(state => state.auth) 
+const { isLoading } = useSelector(state => state.auth);
 const [ formData, setFormData ] = useState("");
 
 const dispatch = useDispatch();
@@ -21,6 +21,7 @@ const onSubmit = (e) => {
     const otp = Object.values(formData).join('');
     dispatch(verifyOtp(otp))
     .then((res) => {
+        console.log(res);  
         if(res?.payload?.status === "success"){
             toast(res?.payload?.message);
         }else if(res?.error?.message === "Rejected"){
@@ -30,8 +31,8 @@ const onSubmit = (e) => {
         }
     }).catch((err) => {
         toast(err.message);
-    })
-  }
+    });
+  };
 
   return (
        <div className="mx-auto w-full max-w-md space-y-6">
