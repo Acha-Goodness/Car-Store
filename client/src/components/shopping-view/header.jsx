@@ -19,8 +19,8 @@ const Header = () => {
         </video>
         <div className="relative z-10">
             <div>
-                <div className='bg-[#5F2780] flex justify-between w-[98%] mx-auto my-[0.5%]'>
-                    <h1>Adverts</h1>
+                <div className='bg-[#5F2780] w-[98%] mx-auto my-[0.5%] py-[0.5%] rounded-[5px]'>
+                    <p className='text-white text-center'>Vcheveu Earn points from your bookings and get discounts! Discover more!</p>
                 </div>
                 <div className='bg-[#ffffff] flex justify-between items-center w-[98%] mx-auto rounded-[15px]'>
                     <div className='pl-[2%] cursor-pointer'>
