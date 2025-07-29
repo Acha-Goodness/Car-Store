@@ -1,6 +1,8 @@
 import React from 'react';
 import heroVid from "../../assets/heroVid.webm";
 import logoIcon from "../../assets/logoIcon.png";
+import { Button } from '../ui/button';
+import { MdPerson4, MdKeyboardArrowDown, MdQuestionMark, MdOutlineShoppingCart} from "react-icons/md";
 
 const Header = () => {
   return (
@@ -26,10 +28,10 @@ const Header = () => {
                         <div className='w-[60%] bg-[green]'>
                             <p>Search</p>
                         </div>
-                        <div className='flex justify-evenly w-[30%] bg-[pink]'>
-                            <p>Account</p>
-                            <p>Help</p>
-                            <p>Cart</p>
+                        <div className='flex justify-evenly w-[30%]'>
+                            <Button className="w-[30%] bg-[#D4AF37] text-white"><MdPerson4 />Account <MdKeyboardArrowDown/></Button>
+                            <Button className="w-[30%] bg-transperent text-white"><MdQuestionMark />Help<MdKeyboardArrowDown/></Button>
+                            <Button className="w-[30%] bg-transperent text-white"><MdOutlineShoppingCart />Cart</Button>
                         </div>
                     </div>
                 </div>
