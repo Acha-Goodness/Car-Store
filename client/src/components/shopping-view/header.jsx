@@ -5,6 +5,9 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { MdPerson4, MdKeyboardArrowDown, MdQuestionMark, MdOutlineShoppingCart} from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
+import { FaBoxOpen } from "react-icons/fa";
+import { GiSelfLove } from "react-icons/gi";
+import { SiGnuprivacyguard } from "react-icons/si";
 
 const Header = () => {
   return (
@@ -32,7 +35,17 @@ const Header = () => {
                             <CiSearch className='ml-[1%] text-[30px] text-[#5F2780] cursor-pointer'/>
                         </div>
                         <div className='flex justify-between w-[30%]'>
-                            <Button className="w-[30%] bg-[#5F2780] text-white cursor-pointer"><MdPerson4 />Account <MdKeyboardArrowDown/></Button>
+                            <div>
+                                <Button className="w-full bg-[#5F2780] text-white cursor-pointer"><MdPerson4 />Account <MdKeyboardArrowDown/></Button>
+                                <nav className='absolute bg-[white] p-[10px] top-[22%] w-[10%] right-[13.8%] rounded-[5px]'>
+                                    <Button className="w-full bg-[#5F2780] text-[white] cursor-pointer mb-[10px]"><SiGnuprivacyguard/>Sign In</Button>
+                                    <ul className='text-[#5F2780]'>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><MdPerson4 className='mr-[15px] text-[25px]'/>My Account</li>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><FaBoxOpen className='mr-[15px] text-[25px]'/>Orders</li>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><GiSelfLove className='mr-[15px] text-[25px]'/>Whishlist</li>
+                                    </ul>
+                                </nav>
+                            </div>
                             <Button className="w-[30%] bg-transperent text-[#5F2780] cursor-pointer"><MdQuestionMark />Help<MdKeyboardArrowDown/></Button>
                             <Button className="w-[30%] bg-transperent text-[#5F2780] cursor-pointer"><MdOutlineShoppingCart />Cart</Button>
                         </div>
