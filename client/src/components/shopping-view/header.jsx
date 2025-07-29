@@ -37,7 +37,7 @@ const Header = () => {
                         <div className='flex justify-between w-[30%]'>
                             <div>
                                 <Button className="w-full bg-[#5F2780] text-white cursor-pointer"><MdPerson4 />Account <MdKeyboardArrowDown/></Button>
-                                <nav className='absolute bg-[white] p-[10px] top-[22%] w-[10%] right-[13.8%] rounded-[5px]'>
+                                <nav className='absolute bg-[white] p-[10px] top-[22%] w-[10%] right-[14.5%] rounded-[5px]'>
                                     <Button className="w-full bg-[#5F2780] text-[white] cursor-pointer mb-[10px]"><SiGnuprivacyguard/>Sign In</Button>
                                     <ul className='text-[#5F2780]'>
                                         <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><MdPerson4 className='mr-[15px] text-[25px]'/>My Account</li>
@@ -46,7 +46,19 @@ const Header = () => {
                                     </ul>
                                 </nav>
                             </div>
-                            <Button className="w-[30%] bg-transperent text-[#5F2780] cursor-pointer"><MdQuestionMark />Help<MdKeyboardArrowDown/></Button>
+                            <div>
+                                <Button className="w-full bg-transperent text-[#5F2780] cursor-pointer"><MdQuestionMark />Help<MdKeyboardArrowDown/></Button>
+                                  <nav className='absolute bg-[white] p-[10px] top-[22%] w-[13%] right-[1%] rounded-[5px]'>
+                                    <ul className='text-[#5F2780]'>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><MdPerson4 className='mr-[15px] text-[25px]'/>Help Center</li>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><FaBoxOpen className='mr-[15px] text-[25px]'/>Place and order</li>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><GiSelfLove className='mr-[15px] text-[25px]'/>Payment options</li>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><MdPerson4 className='mr-[15px] text-[25px]'/>Track and order</li>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><FaBoxOpen className='mr-[15px] text-[25px]'/>Cancel and orders</li>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><GiSelfLove className='mr-[15px] text-[25px]'/>Returns & Refunds</li>
+                                    </ul>
+                                </nav>
+                            </div>
                             <Button className="w-[30%] bg-transperent text-[#5F2780] cursor-pointer"><MdOutlineShoppingCart />Cart</Button>
                         </div>
                     </div>
