@@ -3,6 +3,7 @@ const crypto = require("crypto");
 const AppError = require("../Utils/appError");
 const { sendJWTToken, correctPassword, createOTP } = require("../Utils/appFeatures");
 const Email = require("../Utils/email");
+const jwt = require("jsonwebtoken");
 
 exports.verifyOTP = Model => catchAsync( async (req, res, next) => {
     
@@ -93,4 +94,36 @@ exports.resetPassword = Model => catchAsync( async (req, res, next) => {
 
     // LOG THE USER IN SEND JWT
     sendJWTToken(doc, 201, res);
-})
+});
+
+exports.logOut = () => catchAsync( async ( req, res, next ) => {
+    console.log(res)
+    res.clearCookie("jwt").json({
+        status: "success",
+        message : "Logged out successfully!"
+    })
+});
+
+// AUTH MIDDLEWARE (checks if user/admin is still login)
+exports.authMiddleware = () =>  catchAsync( async ( req, res, next ) => {
+
+    const JWTToken = req.cookies.jwt;
+
+    if(!JWTToken) return next(new AppError("Unauthorised user!", 401, res));
+
+    try{
+        console.log("JWT_SECRET:", process.env.JWT_SECRET);
+        const decodedJWTToken = jwt.verify(JWTToken, process.env.JWT_SECRET);
+
+        const user = decodedJWTToken;
+
+        res.status(200).json({
+            status: "success",
+            message: "Authenticated user!",
+            user: user
+        })
+    }catch (err){
+        console.error("JWT Verification Error:", err.message);
+        return next(new AppError("Unauthorised user!", 401, res));
+    }
+});

@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+const cookieParser = require('cookie-parser');
 const userRouter = require("./Routes/userRoutes");
 
 const app = express();
@@ -14,6 +15,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(cookieParser());
 
 // CHECKING FOR CURRENT ENVIROMENT
 if(process.env.NODE_ENV === "development"){

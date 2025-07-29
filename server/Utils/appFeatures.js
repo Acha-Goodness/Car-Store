@@ -19,6 +19,15 @@ const jwtAuthToken = id => {
 exports.sendJWTToken = ( operator, statusCode, res ) => {
     const JWTToken = jwtAuthToken(operator._id);
 
+    // Cookie options
+    const cookieOptions = {
+        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production" // send only over HTTPS in production
+    };
+
+    res.cookie("jwt", JWTToken, cookieOptions);
+
     operator.password = undefined;
 
     res.status(statusCode).json({
