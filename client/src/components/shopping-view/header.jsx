@@ -2,7 +2,9 @@ import React from 'react';
 import heroVid from "../../assets/heroVid.webm";
 import logoIcon from "../../assets/logoIcon.png";
 import { Button } from '../ui/button';
+import { Input } from '../ui/input';
 import { MdPerson4, MdKeyboardArrowDown, MdQuestionMark, MdOutlineShoppingCart} from "react-icons/md";
+import { CiSearch } from "react-icons/ci";
 
 const Header = () => {
   return (
@@ -21,17 +23,18 @@ const Header = () => {
                     <h1>Adverts</h1>
                 </div>
                 <div className='bg-[#ffffff] flex justify-between items-center w-[98%] mx-auto rounded-[15px]'>
-                    <div className='pl-[2%]'>
+                    <div className='pl-[2%] cursor-pointer'>
                         <img src={logoIcon} className='w-[25%]' alt="logo"/>
                     </div>
-                    <div className='w-[90%] flex justify-end items-center bg-[red]'>
-                        <div className='w-[60%] bg-[green]'>
-                            <p>Search</p>
+                    <div className='w-[90%] flex justify-end items-center'>
+                        <div className='w-[60%] bg-[white] mr-[2%] flex items-center'>
+                            <Input type="text" placeholder='Search services or product' className="text-[#5F2780]"/>
+                            <CiSearch className='ml-[1%] text-[30px] text-[#5F2780] cursor-pointer'/>
                         </div>
-                        <div className='flex justify-evenly w-[30%]'>
-                            <Button className="w-[30%] bg-[#D4AF37] text-white"><MdPerson4 />Account <MdKeyboardArrowDown/></Button>
-                            <Button className="w-[30%] bg-transperent text-white"><MdQuestionMark />Help<MdKeyboardArrowDown/></Button>
-                            <Button className="w-[30%] bg-transperent text-white"><MdOutlineShoppingCart />Cart</Button>
+                        <div className='flex justify-between w-[30%]'>
+                            <Button className="w-[30%] bg-[#5F2780] text-white cursor-pointer"><MdPerson4 />Account <MdKeyboardArrowDown/></Button>
+                            <Button className="w-[30%] bg-transperent text-[#5F2780] cursor-pointer"><MdQuestionMark />Help<MdKeyboardArrowDown/></Button>
+                            <Button className="w-[30%] bg-transperent text-[#5F2780] cursor-pointer"><MdOutlineShoppingCart />Cart</Button>
                         </div>
                     </div>
                 </div>
