@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import heroVid from "../../assets/heroVid.webm";
 import logoIcon from "../../assets/logoIcon.png";
 import { Button } from '../ui/button';
@@ -13,6 +13,19 @@ import { IoCard } from "react-icons/io5";
 import { GoStopwatch } from "react-icons/go";
 
 const Header = () => {
+  const [ accSub, setAccSub ] = useState(false);
+  const [ helpSub, setHelpSub ] = useState(false);
+
+  const toggleAccMenu = () => {
+    setAccSub(!accSub);
+      setHelpSub(false);
+  };
+
+  const toggleHelpMenu = () => {
+    setHelpSub(!helpSub);
+     setAccSub(false);
+  };
+
   return (
     <div>
         <video className="absolute top-0 left-0 w-full h-[80%] object-cover"
@@ -39,26 +52,26 @@ const Header = () => {
                         </div>
                         <div className='flex justify-between w-[30%]'>
                             <div>
-                                <Button className="w-full bg-[#5F2780] text-white cursor-pointer"><MdPerson4 />Account <MdKeyboardArrowDown/></Button>
-                                <nav className='absolute bg-[white] p-[10px] top-[22%] w-[10%] right-[14.5%] rounded-[5px]'>
+                                <Button className="w-full bg-[#5F2780] text-white cursor-pointer" onClick={toggleAccMenu}><MdPerson4 />Account <MdKeyboardArrowDown/></Button>
+                                <nav className={`absolute bg-[white] p-[10px] top-[22%] w-[10%] right-[14.5%] rounded-[5px] ${!accSub && "top-[-50%]"}`}>
                                     <Button className="w-full bg-[#5F2780] text-[white] cursor-pointer mb-[10px]"><SiGnuprivacyguard/>Sign In</Button>
                                     <ul className='text-[#5F2780]'>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><MdPerson4 className='mr-[15px] text-[25px]'/>My Account</li>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><FaBoxOpen className='mr-[15px] text-[25px]'/>Orders</li>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><GiSelfLove className='mr-[15px] text-[25px]'/>Whishlist</li>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><MdPerson4 className='mr-[15px] text-[25px]'/>My Account</li>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><FaBoxOpen className='mr-[15px] text-[25px]'/>Orders</li>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><GiSelfLove className='mr-[15px] text-[25px]'/>Whishlist</li>
                                     </ul>
                                 </nav>
                             </div>
                             <div>
-                                <Button className="w-full bg-transperent text-[#5F2780] cursor-pointer"><MdQuestionMark />Help<MdKeyboardArrowDown/></Button>
-                                  <nav className='absolute bg-[white] p-[10px] top-[22%] w-[13%] right-[1%] rounded-[5px]'>
+                                <Button className="w-full bg-transperent text-[#5F2780] cursor-pointer" onClick={toggleHelpMenu}><MdQuestionMark />Help<MdKeyboardArrowDown/></Button>
+                                  <nav className={`absolute bg-[white] p-[10px] top-[22%] w-[13%] right-[1%] rounded-[5px] ${!helpSub && "top-[-50%]"}`}>
                                     <ul className='text-[#5F2780]'>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><FaHandsHelping className='mr-[15px] text-[25px]'/>Help Center</li>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><BsBasket2 className='mr-[15px] text-[25px]'/>Place and order</li>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><IoCard className='mr-[15px] text-[25px]'/>Payment options</li>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><GoStopwatch className='mr-[15px] text-[25px]'/>Track and order</li>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><MdCancelScheduleSend className='mr-[15px] text-[25px]'/>Cancel and orders</li>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px]'><GiReturnArrow className='mr-[15px] text-[25px]'/>Returns & Refunds</li>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><FaHandsHelping className='mr-[15px] text-[25px]'/>Help Center</li>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><BsBasket2 className='mr-[15px] text-[25px]'/>Place and order</li>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><IoCard className='mr-[15px] text-[25px]'/>Payment options</li>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><GoStopwatch className='mr-[15px] text-[25px]'/>Track and order</li>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><MdCancelScheduleSend className='mr-[15px] text-[25px]'/>Cancel and orders</li>
+                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><GiReturnArrow className='mr-[15px] text-[25px]'/>Returns & Refunds</li>
                                     </ul>
                                 </nav>
                             </div>
