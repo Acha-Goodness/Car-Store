@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import AuthLayout from "./components/auth/layout";
 import AuthLogin from "./pages/auth/login";
 import AuthRegister from "./pages/auth/register";
@@ -22,10 +22,13 @@ import UnauthPage from "./pages/unauth-page";
 import { useSelector, useDispatch } from "react-redux";
 import { checkAuth } from "./store/auth-slice";
 import { toast } from "sonner";
+import { MoonLoader } from 'react-spinners';
+// import Header from "./components/shopping-view/header";
 
 function App() {
-  const { user, isAuthenticated} = useSelector( (state) => state.auth)
+  const { user, isAuthenticated, isLoading} = useSelector( (state) => state.auth)
   const dispatch = useDispatch();
+  const location = useLocation();
 
   useEffect(() => {
     dispatch(checkAuth())
@@ -44,48 +47,61 @@ function App() {
 
 
   return (
-    <div className="flex flex-col overflow-hidden bg-white">
-      {/* COMMON COMPONENT */}
-      {
-        location.pathname.includes("auth") ? <></> :
-        <h1>Hearder Component</h1>
-      }
-      <Routes>
-          <Route path="/auth" element={
-            <CheckAuth isAuthenticated={isAuthenticated} user={user}>
-              <AuthLayout/>
-            </CheckAuth>
-          }>
-              <Route path="login" element={<AuthLogin/>}/>
-              <Route path="register" element={<AuthRegister/>}/>
-              <Route path="verifyOtp" element={<VerifyOtp/>}/>
-              <Route path="forgotPassword" element={<ForgotPass/>}/>
-              <Route path="resetPassword" element={<ResetPass/>}/>
-          </Route>
-          <Route path="/admin" element={
-            <CheckAuth isAuthenticated={isAuthenticated} user={user}>
-              <AdminLayout/>
-            </CheckAuth>
-            }>
-              <Route path="dashboard" element={<AdminDashboard/>}/>
-              <Route path="products" element={<AdminProducts/>}/>
-              <Route path="orders" element={<AdminOrders/>}/>
-              <Route path="features" element={<AdminFeatures/>}/>
-          </Route>
-          <Route path="/shop" element={
-            <CheckAuth isAuthenticated={isAuthenticated} user={user}>
-              <ShoppingLayout/>
-            </CheckAuth>
-            }>
-              <Route path="home" element={<ShoppingHome/>}/>
-              <Route path="listing" element={<ShoppingListing/>}/>
-              <Route path="checkout" element={<ShoppingCheckout/>}/>
-              <Route path="account" element={<ShoppingAccount/>}/>
-          </Route>
-          <Route path="/unauth-page" element={<UnauthPage/>}/>
-          <Route path="*" element={<NotFound/>}/>
-      </Routes>
-    </div>
+    <>
+    {
+      isLoading ? 
+      (
+        <div>
+          <MoonLoader color="#000000" size={20} /> 
+        </div> 
+      )
+        :  
+      (
+        <div className="flex flex-col overflow-hidden bg-white">
+          {/* COMMON COMPONENT */}
+          {/* {
+            location.pathname.includes("auth") ? <></> :
+            <Header/>
+          } */}
+          <Routes>
+              <Route path="/auth" element={
+                <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+                  <AuthLayout/>
+                </CheckAuth>
+              }>
+                  <Route path="login" element={<AuthLogin/>}/>
+                  <Route path="register" element={<AuthRegister/>}/>
+                  <Route path="verifyOtp" element={<VerifyOtp/>}/>
+                  <Route path="forgotPassword" element={<ForgotPass/>}/>
+                  <Route path="resetPassword" element={<ResetPass/>}/>
+              </Route>
+              <Route path="/admin" element={
+                <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+                  <AdminLayout/>
+                </CheckAuth>
+                }>
+                  <Route path="dashboard" element={<AdminDashboard/>}/>
+                  <Route path="products" element={<AdminProducts/>}/>
+                  <Route path="orders" element={<AdminOrders/>}/>
+                  <Route path="features" element={<AdminFeatures/>}/>
+              </Route>
+              <Route path="/shop" element={
+                <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+                  <ShoppingLayout/>
+                </CheckAuth>
+                }>
+                  <Route path="home" element={<ShoppingHome/>}/>
+                  <Route path="listing" element={<ShoppingListing/>}/>
+                  <Route path="checkout" element={<ShoppingCheckout/>}/>
+                  <Route path="account" element={<ShoppingAccount/>}/>
+              </Route>
+              <Route path="/unauth-page" element={<UnauthPage/>}/>
+              <Route path="*" element={<NotFound/>}/>
+          </Routes>
+        </div>
+      )
+    }
+    </>
   )
 }
 
