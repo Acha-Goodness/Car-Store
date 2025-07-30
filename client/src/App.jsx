@@ -28,7 +28,7 @@ import { MoonLoader } from 'react-spinners';
 function App() {
   const { user, isAuthenticated, isLoading} = useSelector( (state) => state.auth)
   const dispatch = useDispatch();
-  const location = useLocation();
+  // const location = useLocation();
 
   useEffect(() => {
     dispatch(checkAuth())

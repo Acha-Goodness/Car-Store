@@ -93,7 +93,6 @@ export const checkAuth = createAsyncThunk("/auth/checkauth",
             });
             return response.data
         }catch (err) {
-            console.log("REDUX ERROR: ", err)
             const message =
             err.response?.data?.message || "Something went wrong";
             return rejectWithValue(message);
