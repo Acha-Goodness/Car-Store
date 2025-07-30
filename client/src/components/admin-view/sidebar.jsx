@@ -1,6 +1,21 @@
 import React, { Fragment } from 'react';
 import { RiAdminFill } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
+import { adminSidebarMenuItems } from '../config';
+
+const MenuItems = () => {
+  return (
+    <nav className='mt-8 flex-col flex gap-2'>
+        {
+          adminSidebarMenuItems.map(menuItem => 
+          <div className='flex items-center gap-2 rounded-md px-3 py-2'>
+
+          </div>
+          )
+        }
+    </nav>
+  )
+}
 
 
 const AdminSideBar = () => {
