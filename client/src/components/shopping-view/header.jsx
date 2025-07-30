@@ -18,12 +18,12 @@ const Header = () => {
 
   const toggleAccMenu = () => {
     setAccSub(!accSub);
-      setHelpSub(false);
+    setHelpSub(false);
   };
 
   const toggleHelpMenu = () => {
     setHelpSub(!helpSub);
-     setAccSub(false);
+    setAccSub(false);
   };
 
   return (
@@ -53,7 +53,7 @@ const Header = () => {
                         <div className='flex justify-between w-[30%]'>
                             <div>
                                 <Button className="w-full bg-[#5F2780] text-white cursor-pointer" onClick={toggleAccMenu}><MdPerson4 />Account <MdKeyboardArrowDown/></Button>
-                                <nav className={`absolute bg-[white] p-[10px] top-[22%] w-[10%] right-[14.5%] rounded-[5px] ${!accSub && "top-[-50%]"}`}>
+                                <nav className={`absolute bg-[white] p-[10px] w-[10%] right-[14.5%] rounded-[5px] z-[-1] ease-in-out ${accSub ? "top-[22%] opacity-100 duration-300" : "top-[-50%] opacity-0 duration-100"}`}>
                                     <Button className="w-full bg-[#5F2780] text-[white] cursor-pointer mb-[10px]"><SiGnuprivacyguard/>Sign In</Button>
                                     <ul className='text-[#5F2780]'>
                                         <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><MdPerson4 className='mr-[15px] text-[25px]'/>My Account</li>
@@ -64,7 +64,7 @@ const Header = () => {
                             </div>
                             <div>
                                 <Button className="w-full bg-transperent text-[#5F2780] cursor-pointer" onClick={toggleHelpMenu}><MdQuestionMark />Help<MdKeyboardArrowDown/></Button>
-                                  <nav className={`absolute bg-[white] p-[10px] top-[22%] w-[13%] right-[1%] rounded-[5px] ${!helpSub && "top-[-50%]"}`}>
+                                  <nav className={`absolute bg-[white] p-[10px] w-[13%] right-[1%] rounded-[5px] z-[-1] ease-in-out ${helpSub ? "top-[22%] opacity-100 duration-300" : "top-[-50%] opacity-0 duration-100"}`}>
                                     <ul className='text-[#5F2780]'>
                                         <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><FaHandsHelping className='mr-[15px] text-[25px]'/>Help Center</li>
                                         <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><BsBasket2 className='mr-[15px] text-[25px]'/>Place and order</li>
