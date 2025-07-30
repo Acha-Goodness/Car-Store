@@ -112,7 +112,6 @@ exports.authMiddleware = () =>  catchAsync( async ( req, res, next ) => {
     if(!JWTToken) return next(new AppError("Unauthorised user!", 401, res));
 
     try{
-        console.log("JWT_SECRET:", process.env.JWT_SECRET);
         const decodedJWTToken = jwt.verify(JWTToken, process.env.JWT_SECRET);
 
         const user = decodedJWTToken;

@@ -10,14 +10,15 @@ exports.createOTP = async ( operator ) => {
     return OTP
 };
 
-const jwtAuthToken = id => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
+const jwtAuthToken = (operator) => {
+    const {_id, name, email, role } = operator;
+    return jwt.sign({ _id, name, email, role}, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_IN
     })
 }
 
 exports.sendJWTToken = ( operator, statusCode, res ) => {
-    const JWTToken = jwtAuthToken(operator._id);
+    const JWTToken = jwtAuthToken(operator);
 
     // Cookie options
     const cookieOptions = {
@@ -34,9 +35,7 @@ exports.sendJWTToken = ( operator, statusCode, res ) => {
         status: "success",
         JWTToken: JWTToken,
         message: "Login successful",
-        data:{
-            user:operator
-        }
+        user:operator
     })
 };
 
