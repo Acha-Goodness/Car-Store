@@ -32,7 +32,8 @@ exports.addProduct = catchAsync( async(rep, res, nest) => {
         await newProduct.save();
         res.status(201).json({
             success: true,
-            data: newProduct
+            data: newProduct,
+            message: "Product successfully created"
         });
     }catch(err){
         console.log(err)
@@ -41,7 +42,7 @@ exports.addProduct = catchAsync( async(rep, res, nest) => {
 })
 
 // FETCH ALL PRODUCTS
-exports.editProduct = catchAsync( async (req, res, next) => {
+exports.fetchProducts = catchAsync( async (req, res, next) => {
     try{
         const listOfProducts = await Product.find({});
         res.status(200).json({
@@ -60,6 +61,27 @@ exports.editProduct = catchAsync( async (req, res, next) => {
 
 exports.editProduct = catchAsync( async (req, res, next) => {
     try{
+        const { id } = req.params;
+        const { image, title, description, category, brand, price, salePrice, totalStock } = req.body;
+
+        const findProduct = await Product.findById(id);
+        if(!findProduct) return next(new AppError("Product not found", 404, res))
+
+        findProduct.image = image || findProduct.image;
+        findProduct.title = title || findProduct.title;
+        findProduct.description = description || findProduct.description;
+        findProduct.category = category || findProduct.category;
+        findProduct.brand = brand || findProduct.brand;
+        findProduct.price = price || findProduct.price;
+        findProduct.salePrice = salePrice || findProduct.salePrice;
+        findProduct.totalStock = totalStock || findProduct.totalStock;
+
+        await findProduct.save();
+
+        res.status(200).json({
+            success: true,
+            message: "Product updated sucessfully"
+        })
 
     }catch(err){
         console.log(err);
