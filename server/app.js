@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const userRouter = require("./Routes/userRoutes");
+const adminProductsRouter = require("./Routes/Admin/productRoutes");
 
 const app = express();
 app.use(express.json());
@@ -25,6 +26,7 @@ if(process.env.NODE_ENV === "development"){
 
 // ENDPOINT ROUTING BY MOUNTING e.g Mounting the router
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/admin/products", adminProductsRouter);
 
 
 
