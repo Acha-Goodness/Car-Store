@@ -29,7 +29,7 @@ const AdminProducts = () => {
   return (
     <Fragment>
       <div className='mb-5 w-full flex justify-end'>
-          <Button onClick={() => setOpenCreateProductDialog(true)}>
+          <Button onClick={() => setOpenCreateProductDialog(true)} className="bg-[#5F2780] text-white">
              Add New Product
           </Button>
       </div>
@@ -41,7 +41,7 @@ const AdminProducts = () => {
         }>
           <SheetContent side="right" className="overflow-auto bg-[white]">
               <SheetHeader>
-                  <SheetTitle>Add New Product</SheetTitle>
+                  <SheetTitle className="text-[#5F2780]">Add New Product</SheetTitle>
               </SheetHeader>
               <ProductImageUpload imageFile={imageFile} setImageFile={setImageFile} uploadedImageUrl={uploadedImageUrl} setUploadedImageUrl={setUploadedImageUrl}/>
               <div className='py-6'>
