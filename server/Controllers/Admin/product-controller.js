@@ -1,4 +1,5 @@
 const { imageUploadUtill } = require("../../Helpers/cloudinary");
+const Product = require("../../Models/productModel");
 const AppError = require("../../Utils/appError");
 const catchAsync = require("../../Utils/catchAsync");
 
@@ -22,7 +23,17 @@ exports.handleImageUpload = catchAsync( async (req, res, next) => {
 // ADD NEW PRODUCT 
 exports.addProduct = catchAsync( async(rep, res, nest) => {
     try{
+        const { image, title, description, category, brand, price, salePrice, totalStock } = req.body;
 
+        const newProduct = new Product({
+            image, title, description, category, brand, price, salePrice, totalStock 
+        })
+
+        await newProduct.save();
+        res.status(201).json({
+            success: true,
+            data: newProduct
+        });
     }catch(err){
         console.log(err)
         return next(new AppError("Error Occured", 400, res))
