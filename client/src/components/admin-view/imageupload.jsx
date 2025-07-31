@@ -1,12 +1,13 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { RiUploadCloud2Fill } from "react-icons/ri";
 import { FaFileImage } from "react-icons/fa6";
 import { GiCrossMark } from "react-icons/gi";
 import { Button } from '../ui/button';
+import axios from 'axios';
 
-const ProductImageUpload = ({ imageFile, setImageFile, uploadedImageUrl, setUploadedImageUrl }) => {
+const ProductImageUpload = ({ imageFile, setImageFile, uploadedImageUrl, setUploadedImageUrl, imageLoading, setImageLoading }) => {
   const inputRef = useRef(null);
 
   const handleImageFileChange = (e) => {
@@ -29,6 +30,21 @@ const ProductImageUpload = ({ imageFile, setImageFile, uploadedImageUrl, setUplo
     setImageFile(null);
     if(inputRef.current) inputRef.current.value = "";
   }
+
+  const uploadImageToCloudinary = async () => {
+    setImageLoading(true);
+    const data = new FormData();
+    data.append("my_file", imageFile)
+    const response = await axios.post("http://localhost:3000/api/v1/admin/products/upload-image", data)
+    if(response.data.status){
+       setUploadedImageUrl(response.data.result.url);
+       setImageLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if(imageFile !== null) uploadImageToCloudinary()
+  }, [imageFile]);
 
   return (
     <div className='w-full max-w-md mx-auto mt-4'>

@@ -21,6 +21,7 @@ const AdminProducts = () => {
   const [ formData, setFormData ] = useState(initialFormData);
   const [ imageFile, setImageFile] = useState(null);
   const [ uploadedImageUrl, setUploadedImageUrl] = useState("");
+  const [ imageLoading, setImageLoading ] = useState(false);
 
   const onSubmit = () => {
 
@@ -43,7 +44,14 @@ const AdminProducts = () => {
               <SheetHeader>
                   <SheetTitle className="text-[#5F2780]">Add New Product</SheetTitle>
               </SheetHeader>
-              <ProductImageUpload imageFile={imageFile} setImageFile={setImageFile} uploadedImageUrl={uploadedImageUrl} setUploadedImageUrl={setUploadedImageUrl}/>
+              <ProductImageUpload 
+                  imageFile={imageFile} 
+                  setImageFile={setImageFile} 
+                  uploadedImageUrl={uploadedImageUrl} 
+                  setUploadedImageUrl={setUploadedImageUrl}
+                  setImageLoading={setImageLoading}
+                  imageLoading={imageLoading}
+              />
               <div className='py-6'>
                 <CommonForm formData={formData} setFormData={setFormData} buttonText="Add" onSubmit={onSubmit} formControls={addPoductFormElements} color="#5F2780"/>
               </div>
