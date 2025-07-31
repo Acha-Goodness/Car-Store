@@ -1,12 +1,12 @@
 import React from 'react';
 import { Input } from '../ui/input';
-import { Select, SelectContent, SelectTrigger, SelectValue } from '../ui/select';
+import { Select, SelectContent, SelectTrigger, SelectValue, SelectItem } from '../ui/select';
 import { Textarea } from '../ui/textarea';
 import { Label } from '../ui/label';
 import { Button } from '../ui/button';
 import { MoonLoader } from 'react-spinners';
 
-const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText, isLoading }) => {
+const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText, isLoading, color }) => {
 
   const renderInputsByComponentType = (getControlItem) => {
 
@@ -40,7 +40,7 @@ const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText,
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder={getControlItem.placeholder}/>
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-white">
                         {
                             getControlItem.options && 
                             getControlItem.options.length > 0 ?
@@ -96,7 +96,7 @@ const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText,
           </div>)
         }
       </div>
-      <Button type="submit" className={`mt-5 w-full bg-[#D4AF37] text-white ${buttonText === "Verify Otp" && "w-full"}`}>{isLoading && <MoonLoader color="#ffffff" size={20} />} {buttonText || "Submit"}</Button>
+      <Button type="submit" className={`mt-5 w-full ${color ? "bg-[#5F2780]" : "bg-[#D4AF37]"} text-white ${buttonText === "Verify Otp" && "w-full"}`}>{isLoading && <MoonLoader color="#ffffff" size={20} />} {buttonText || "Submit"}</Button>
     </form>
   )
 }
