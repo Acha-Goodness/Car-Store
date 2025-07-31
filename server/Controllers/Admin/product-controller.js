@@ -43,7 +43,11 @@ exports.addProduct = catchAsync( async(rep, res, nest) => {
 // FETCH ALL PRODUCTS
 exports.editProduct = catchAsync( async (req, res, next) => {
     try{
-
+        const listOfProducts = await Product.find({});
+        res.status(200).json({
+            success: true,
+            data: listOfProducts
+        })
     }catch(err){
         console.log(err)
         return next(new AppError("Error Occured", 400, res))
