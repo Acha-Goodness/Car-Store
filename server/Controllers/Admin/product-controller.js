@@ -92,7 +92,15 @@ exports.editProduct = catchAsync( async (req, res, next) => {
 // DELETE A PRODUCT
 exports.deleteProduct = catchAsync( async (req, res, next) => {
     try{
+        const { id } = req.params;
+        const product = await Product.findByIdAndDelete(id);
 
+        if(!product) return next( new AppError("Product no found", 404, res))
+        
+            res.status(200).json({
+                success : true,
+                message : "Product deleted successfully"
+            })
     }catch(err){
         console.log(err)
         return next(new AppError("Error Occured", 400, res))
