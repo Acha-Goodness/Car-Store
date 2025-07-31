@@ -9,7 +9,7 @@ cloudinary.config({
 
 const storage = new multer.memoryStorage();
 
-const handleImageUpload = async () => {
+const ImageUploadUtill = async () => {
     const result = await cloudinary.uploader.upload(File, {
         resource_type : "auto"
     })
@@ -19,4 +19,4 @@ const handleImageUpload = async () => {
 
 const upload = multer({storage})
 
-module.exports = {upload, handleImageUpload};
+module.exports = {upload, ImageUploadUtill};
