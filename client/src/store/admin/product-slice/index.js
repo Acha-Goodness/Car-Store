@@ -6,17 +6,17 @@ const initialState = {
     productList : []
 }
 
+export const fetchAllProducts = createAsyncThunk("/products/fetchAllProducts", async () => {
+    const result = await axios.get("http://localhost:3000/api/v1/admin/products/get")
+    return result?.data;
+});
+
 export const addNewProduct = createAsyncThunk("/products/addnewproduct", async (formData) => {
     const result = await axios.post("http://localhost:3000/api/v1/admin/products/add", formData, {
         hearders: {
             "Content-Type" : "application/json"
         },
     })
-    return result?.data;
-});
-
-export const fetchAllProducts = createAsyncThunk("/products/fetchAllProducts", async () => {
-    const result = await axios.get("http://localhost:3000/api/v1/admin/products/get")
     return result?.data;
 });
 
@@ -39,6 +39,14 @@ const AdminProductsSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-
+        builder.addCase(fetchAllProducts.pending, (state) => {
+            state.isLoading = true;
+        }).addCase(fetchAllProducts.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.productList = action.payload;
+        }).addCase(fetchAllProducts.rejected, (state) => {
+            state.isLoading = false;
+            state.productList = []
+        })
     }
 })
