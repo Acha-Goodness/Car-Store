@@ -6,6 +6,8 @@ import { addPoductFormElements } from '@/components/config';
 import ProductImageUpload from '@/components/admin-view/imageupload';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewProduct, fetchAllProducts } from '@/store/admin/product-slice';
+import { toast } from 'sonner';
+import AdminProductsTiles from '@/components/admin-view/productTiles';
 
 const initialFormData = {
   image: null,
@@ -24,7 +26,7 @@ const AdminProducts = () => {
   const [ imageFile, setImageFile] = useState(null);
   const [ uploadedImageUrl, setUploadedImageUrl] = useState("");
   const [ imageLoading, setImageLoading ] = useState(false);
-  const { productList } = useSelector(state => state.adminProducts)
+  const { productList, isLoading } = useSelector(state => state.adminProducts)
   const dispatch = useDispatch();
 
   const onSubmit = (e) => {
@@ -34,9 +36,17 @@ const AdminProducts = () => {
       image: uploadedImageUrl
     })).then((res) => {
       console.log(res)
-      if(data?.payload?.success)
+      if(res?.payload?.success){
+        dispatch(fetchAllProducts());
+        setImageFile(null);
+        setFormData(initialFormData);
+        toast(res?.payload?.message);
+        setOpenCreateProductDialog(false);
+      }else{
+        throw new Error(res.payload || "Product Upload Failed");
+      }
     }).catch((err) => {
-      console.log(err)
+      toast(err.message);
     })
   }
 
@@ -52,7 +62,10 @@ const AdminProducts = () => {
           </Button>
       </div>
       <div className='grid gap-4 md:grid-cols-3 lg:grid-cols-4'>
-
+          {
+            productList && productList.length > 0 ?
+            productList.map( productItem => <AdminProductsTiles product={productItem}/>) : null
+          }
       </div>
       <Sheet open={openCreateProductDialog} onOpenChange={() => 
           setOpenCreateProductDialog(false)
@@ -70,7 +83,7 @@ const AdminProducts = () => {
                   imageLoading={imageLoading}
               />
               <div className='py-6'>
-                <CommonForm formData={formData} setFormData={setFormData} buttonText="Add" onSubmit={onSubmit} formControls={addPoductFormElements} color="#5F2780"/>
+                <CommonForm formData={formData} setFormData={setFormData} buttonText="Add" onSubmit={onSubmit} formControls={addPoductFormElements} color="#5F2780" isLoading={isLoading}/>
               </div>
           </SheetContent>
       </Sheet>

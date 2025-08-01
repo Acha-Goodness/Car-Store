@@ -67,7 +67,7 @@ const ProductImageUpload = ({ imageFile, setImageFile, uploadedImageUrl, setUplo
                 </Label>
                 ):(
                 imageLoading ? (
-                <Skeleton className="h-[20px] w-[100px] rounded-full" /> 
+                  <Skeleton className="h-10 w-full bg-[#f1d8ffff]" /> 
                 ):( 
                 <div className='flex items-center justify-between'>
                     <div className='flex items-center'>
