@@ -34,6 +34,7 @@ const AdminProducts = () => {
       image: uploadedImageUrl
     })).then((res) => {
       console.log(res)
+      if(data?.payload?.success)
     }).catch((err) => {
       console.log(err)
     })
