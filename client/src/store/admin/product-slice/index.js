@@ -21,11 +21,16 @@ export const fetchAllProducts = createAsyncThunk("/products/fetchAllProducts", a
 });
 
 export const editProducts = createAsyncThunk("/products/editProducts", async ({ id, formData }) => {
-    const result = await axios.post(`http://localhost:3000/api/v1/admin/products/edit/:${id}`, formData, {
+    const result = await axios.put(`http://localhost:3000/api/v1/admin/products/edit/:${id}`, formData, {
         hearders: {
             "Content-Type" : "application/json"
         },
     })
+    return result?.data;
+});
+
+export const deleteProducts = createAsyncThunk("/products/deleteProducts", async ({ id }) => {
+    const result = await axios.delete(`http://localhost:3000/api/v1/admin/products/delete/:${id}`)
     return result?.data;
 });
 
