@@ -8,7 +8,7 @@ const catchAsync = require("../../Utils/catchAsync");
 exports.handleImageUpload = catchAsync( async (req, res, next) => {
     try{
         const b64 = Buffer.from(req.file.buffer).toString("base64");
-        const url = "data:" + req.file.mimetype + ";base64" + b64;
+        const url = `data:${req.file.mimetype};base64,${b64}`;
         const result = await imageUploadUtill(url);
         res.status(200).json({
             status: true,
@@ -21,7 +21,7 @@ exports.handleImageUpload = catchAsync( async (req, res, next) => {
 });
 
 // ADD NEW PRODUCT 
-exports.addProduct = catchAsync( async(rep, res, nest) => {
+exports.addProduct = catchAsync( async(req, res, next) => {
     try{
         const { image, title, description, category, brand, price, salePrice, totalStock } = req.body;
 
@@ -64,7 +64,7 @@ exports.editProduct = catchAsync( async (req, res, next) => {
         const { id } = req.params;
         const { image, title, description, category, brand, price, salePrice, totalStock } = req.body;
 
-        const findProduct = await Product.findById(id);
+        let findProduct = await Product.findById(id);
         if(!findProduct) return next(new AppError("Product not found", 404, res))
 
         findProduct.image = image || findProduct.image;
@@ -72,8 +72,8 @@ exports.editProduct = catchAsync( async (req, res, next) => {
         findProduct.description = description || findProduct.description;
         findProduct.category = category || findProduct.category;
         findProduct.brand = brand || findProduct.brand;
-        findProduct.price = price || findProduct.price;
-        findProduct.salePrice = salePrice || findProduct.salePrice;
+        findProduct.price = price === "" ? 0 : price || findProduct.price;
+        findProduct.salePrice = salePrice === "" ? 0 : salePrice || findProduct.salePrice;
         findProduct.totalStock = totalStock || findProduct.totalStock;
 
         await findProduct.save();
