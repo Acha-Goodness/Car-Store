@@ -50,3 +50,5 @@ const AdminProductsSlice = createSlice({
         })
     }
 })
+
+export default AdminProductsSlice.reducer;
