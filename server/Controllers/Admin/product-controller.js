@@ -97,10 +97,10 @@ exports.deleteProduct = catchAsync( async (req, res, next) => {
 
         if(!product) return next( new AppError("Product no found", 404, res))
         
-            res.status(200).json({
-                success : true,
-                message : "Product deleted successfully"
-            })
+        res.status(200).json({
+            success : true,
+            message : "Product deleted successfully"
+        })
     }catch(err){
         console.log(err)
         return next(new AppError("Error Occured", 400, res))
