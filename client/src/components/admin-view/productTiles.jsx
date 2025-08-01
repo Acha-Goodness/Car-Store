@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, CardContent, CardFooter } from '../ui/card';
 import { Button } from '../ui/button';
 
-const AdminProductsTiles = ({ product, setProductId, setOpenCreateProductDialog, setFormData }) => {
+const AdminProductsTiles = ({ product, setProductId, setOpenCreateProductDialog, setFormData, handleDelete }) => {
   return (
     <Card className="w-full max-w-sm mx-auto">
       <div>
@@ -25,8 +25,8 @@ const AdminProductsTiles = ({ product, setProductId, setOpenCreateProductDialog,
                   setOpenCreateProductDialog(true)
                   setProductId(product?._id)
                   setFormData(product)
-              }}>Edit</Button>
-              <Button>Delete</Button>
+              }} className="bg-[#5F2780] text-white">Edit</Button>
+              <Button onClick={() => handleDelete(product?._id)} className="bg-[#5F2780] text-white">Delete</Button>
           </CardFooter>
       </div>
     </Card>

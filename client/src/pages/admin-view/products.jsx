@@ -5,7 +5,7 @@ import CommonForm from '@/components/common/form';
 import { addPoductFormElements } from '@/components/config';
 import ProductImageUpload from '@/components/admin-view/imageupload';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNewProduct, editProducts, fetchAllProducts } from '@/store/admin/product-slice';
+import { addNewProduct, deleteProducts, editProducts, fetchAllProducts } from '@/store/admin/product-slice';
 import { toast } from 'sonner';
 import AdminProductsTiles from '@/components/admin-view/productTiles';
 
@@ -34,8 +34,6 @@ const AdminProducts = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    console.log("EDIT DATA: ", formData)
-
     dispatch(productId !== null ? 
       editProducts({id: productId, formData}) : 
       addNewProduct({...formData, image: uploadedImageUrl})
@@ -59,6 +57,21 @@ const AdminProducts = () => {
     dispatch(fetchAllProducts())
   }, [dispatch]);
 
+  const handleDelete = (id) => {
+    console.log("ID: ", id)
+    dispatch(deleteProducts(id))
+    .then((res) => {
+      if(res?.payload?.success){
+        dispatch(fetchAllProducts());
+        toast(res?.payload?.message);
+      }else{
+        throw new Error(res?.payload)
+      }
+    }).catch((err) => {
+        toast(err.message);
+    })
+  };
+
   return (
     <Fragment>
       <div className='mb-5 w-full flex justify-end'>
@@ -74,6 +87,7 @@ const AdminProducts = () => {
                                                     setProductId={setProductId} 
                                                     setOpenCreateProductDialog={setOpenCreateProductDialog}
                                                     setFormData={setFormData}
+                                                    handleDelete={handleDelete}
                                               />) : null
           }
       </div>
