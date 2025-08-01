@@ -5,7 +5,7 @@ import adminProductsReducer from "./admin/product-slice";
 const store = configureStore({
     reducer: {
         auth: authReducer,
-        adminProductsReducer,
+        adminProducts: adminProductsReducer,
     },
 });
 

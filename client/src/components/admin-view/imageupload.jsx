@@ -6,6 +6,7 @@ import { FaFileImage } from "react-icons/fa6";
 import { GiCrossMark } from "react-icons/gi";
 import { Button } from '../ui/button';
 import axios from 'axios';
+import { Skeleton } from "@/components/ui/skeleton";
 
 const ProductImageUpload = ({ imageFile, setImageFile, uploadedImageUrl, setUploadedImageUrl, imageLoading, setImageLoading }) => {
   const inputRef = useRef(null);
@@ -59,11 +60,15 @@ const ProductImageUpload = ({ imageFile, setImageFile, uploadedImageUrl, setUplo
             />
             {
                 !imageFile ? 
+                (
                 <Label htmlFor="image-upload" className="flex flex-col items-center justify-center h-32 cursor-pointer">
                     <RiUploadCloud2Fill className='w-10 h-10 text-muted-[green] mb-2'/>
                     <span>Drag & Drop or click to upload image</span>
                 </Label>
-                :
+                ):(
+                imageLoading ? (
+                <Skeleton className="h-[20px] w-[100px] rounded-full" /> 
+                ):( 
                 <div className='flex items-center justify-between'>
                     <div className='flex items-center'>
                         <FaFileImage className='w-8 text-[purple] mr-2 h-8' />
@@ -74,7 +79,7 @@ const ProductImageUpload = ({ imageFile, setImageFile, uploadedImageUrl, setUplo
                         <span className='sr-only'>Remove File</span>
                     </Button>
                 </div>
-            }
+            ))}
         </div>
     </div>
   )
