@@ -21,7 +21,7 @@ export const addNewProduct = createAsyncThunk("/products/addnewproduct", async (
 });
 
 export const editProducts = createAsyncThunk("/products/editProducts", async ({ id, formData }) => {
-    const result = await axios.put(`http://localhost:3000/api/v1/admin/products/edit/:${id}`, formData, {
+    const result = await axios.put(`http://localhost:3000/api/v1/admin/products/edit/${id}`, formData, {
         hearders: {
             "Content-Type" : "application/json"
         },
@@ -30,7 +30,7 @@ export const editProducts = createAsyncThunk("/products/editProducts", async ({ 
 });
 
 export const deleteProducts = createAsyncThunk("/products/deleteProducts", async ({ id }) => {
-    const result = await axios.delete(`http://localhost:3000/api/v1/admin/products/delete/:${id}`)
+    const result = await axios.delete(`http://localhost:3000/api/v1/admin/products/delete/${id}`)
     return result?.data;
 });
 
