@@ -1,5 +1,8 @@
 import ProductFilter from '@/components/shopping-view/filter';
 import React from 'react'
+import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { Button } from '@/components/ui/button';
+import { LuArrowUpDown } from "react-icons/lu";
 
 const ShoppingListing = () => {
   return (
@@ -11,6 +14,14 @@ const ShoppingListing = () => {
           <div className='flex items-center gap-2'>
             <span className='text-muted-[green]'>10 Products</span>
           </div>
+              <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="sm" className="flex items-center gap-1">
+                    <LuArrowUpDown className='h-4 w-4'/>
+                    <span>Sort by</span>
+                  </Button>
+              </DropdownMenuTrigger>
+            </DropdownMenu>
         </div>
       </div>
     </div>
