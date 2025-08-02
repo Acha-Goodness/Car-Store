@@ -12,7 +12,6 @@ const AdminHeader = ({setOpen}) => {
 
   const handleLogout = (e) => {
     e.preventDefault()
-    console.log("click is working");
     dispatch(logout())
     .then((res) => {
       toast(res.payload.message);

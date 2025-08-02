@@ -103,7 +103,7 @@ export const checkAuth = createAsyncThunk("/auth/checkauth",
 export const logout = createAsyncThunk("/auth/logout",
     async(rejectWithValue) => {
         try{
-            const response = await axios.post("http://localhost:3000/api/v1/users/logout", {
+            const response = await axios.post("http://localhost:3000/api/v1/users/logout",{}, {
                 withCredentials : true
             });
             return response.data
