@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import heroVid from "../../assets/heroVid.webm";
-import logoIcon from "../../assets/logoIcon.png";
+import logoo from "../../assets/logoo.png";
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { MdPerson4, MdKeyboardArrowDown, MdQuestionMark, MdOutlineShoppingCart, MdCancelScheduleSend} from "react-icons/md";
@@ -43,7 +43,7 @@ const Header = () => {
                 </div>
                 <div className='bg-[#ffffff] flex justify-between items-center w-[98%] mx-auto rounded-[15px]'>
                     <div className='pl-[2%] cursor-pointer'>
-                        <img src={logoIcon} className='w-[25%]' alt="logo"/>
+                        <img src={logoo} className='w-[25%]' alt="logo"/>
                     </div>
                     <div className='w-[90%] flex justify-end items-center'>
                         <div className='w-[60%] bg-[white] mr-[2%] flex items-center'>
