@@ -4,13 +4,19 @@ import { FaPowerOff } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useDispatch } from 'react-redux';
 import { logout } from '@/store/auth-slice';
+import { toast } from 'sonner';
 
 const AdminHeader = ({setOpen}) => {
 
   const dispatch = useDispatch();
 
-  const handleLogout = () => {
-    dispatch(logout());
+  const handleLogout = (e) => {
+    e.preventDefault()
+    console.log("click is working");
+    dispatch(logout())
+    .then((res) => {
+      toast(res.payload.message);
+    })
   };
 
   return (
