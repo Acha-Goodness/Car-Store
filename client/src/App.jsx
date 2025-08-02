@@ -23,6 +23,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { checkAuth } from "./store/auth-slice";
 import { toast } from "sonner";
 import { MoonLoader } from 'react-spinners';
+import { Skeleton } from "@/components/ui/skeleton"
+import logo from "./assets/logoo.png";
 // import Header from "./components/shopping-view/header";
 
 function App() {
@@ -51,8 +53,10 @@ function App() {
     {
       isLoading ? 
       (
-        <div>
-          <MoonLoader color="#000000" size={20} /> 
+        <div className="h-[100vh] flex justify-center items-center">
+            <Skeleton className="w-[250px]">
+              <img src={logo} alt="logo"/>
+            </Skeleton>
         </div> 
       )
         :  
@@ -100,7 +104,7 @@ function App() {
           </Routes>
         </div>
       )
-    }
+     }
     </>
   )
 }
