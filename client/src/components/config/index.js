@@ -170,7 +170,14 @@
         }
     ];
 
-    export const filterOptions = [
-        {id: "nike", }
-    ]
+    export const filterOptions = {
+    brand: [
+        {id: "nike", label: "Nike" },
+        {id: "addidas", label: "Addidas"},
+        {id: "puma", label: "Puma"},
+        {id: "levi", label: "Levi's"},
+        {id: "zara", label: "Zara"},
+        {id: "h&m", label: "H&M"}
+    ],
+    }
 
