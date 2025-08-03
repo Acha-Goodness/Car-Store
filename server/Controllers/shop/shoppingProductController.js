@@ -1,8 +1,10 @@
 const AppError = require("../../Utils/appError");
+const catchAsync = require("../../Utils/catchAsync");
+const Product = require("../../Models/productModel");
 
-const getFilterProducts = async(req, res, next) => {
+exports.getFilterProducts = catchAsync (async(req, res, next) => {
     try{
-        const products = await product.find({});
+        const products = await Product.find({});
         res.status(200).json({
             success: true,
             data: products
@@ -11,4 +13,4 @@ const getFilterProducts = async(req, res, next) => {
         console.log(e);
         return next(new AppError("Some error occured",500, res))
     }
-} 
+});
