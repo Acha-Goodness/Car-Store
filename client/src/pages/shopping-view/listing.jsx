@@ -35,13 +35,20 @@ const ShoppingListing = () => {
       else cpyFilters[getSectionId].splice(indexOfCurrentOption, 1)
     }
     setFilters(cpyFilters);
+    sessionStorage.setItem("filters", JSON.stringify(cpyFilters))
   }
+
+  useEffect(() => {
+    setSort("price-lowtohigh");
+    setFilters(JSON.parse(sessionStorage.getItem("filters")) || [])
+  }, [])
 
   useEffect(() => {
     dispatch(fetchAllFilteredProducts());
   }, [dispatch]);
 
   console.log(filters)
+
 
   return (
     <div className='grid grid-cols-1 md:grid-cols-[300px_1fr] gap-6 p-4 md:p-6'>
