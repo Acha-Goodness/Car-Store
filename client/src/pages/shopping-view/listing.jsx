@@ -6,6 +6,7 @@ import { LuArrowUpDown } from "react-icons/lu";
 import { sortOptions } from '@/components/config';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllFilteredProducts } from '@/store/shop/products-slice';
+import ShoppingPoductTile from '@/components/shopping-view/product-tile';
 
 
 const ShoppingListing = () => {
@@ -46,7 +47,10 @@ const ShoppingListing = () => {
           </div>
         </div>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4'>
-
+            {
+              productList && productList.length > 0 && 
+              productList.map(productItem => <ShoppingPoductTile product={productItem}/>)
+            }
         </div>
       </div>
     </div>
