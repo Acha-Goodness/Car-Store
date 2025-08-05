@@ -10,7 +10,7 @@ const ShoppingPoductTile = ({ product }) => {
             <div className='relative'>
                 <img src={product.image} alt={product.title} className='w-full h-[300px] object-cover rounded-t-lg'/>
                 {product?.salePrice > 0 ? 
-                <Badge className="absolute top-2 left-2 bg-red-500 hover:bg-red-600">Sale</Badge> 
+                <Badge className="absolute top-2 left-2 text-white bg-[#D4AF37] hover:bg-red-600">Sale</Badge> 
                 : 
                 null}
             </div>
@@ -21,14 +21,14 @@ const ShoppingPoductTile = ({ product }) => {
                     <span className='text-sm text-muted-[grey]'>{product?.brand}</span>
                 </div>
                 <div className='flex justify-between items-center mb-2'>
-                    <span className={`${product?.salePrice > 0 && "line-through"} text-lg font-semibold text-[blue]`}>{product?.price}</span>
+                    <span className={`${product?.salePrice > 0 && "line-through"} text-lg font-semibold text-[#5F2780]`}>{product?.price}</span>
                     {
-                        product?.salePrice > 0 &&  <span className='text-lg font-semibold text-[blue]'>{product?.salePrice}</span>
+                        product?.salePrice > 0 &&  <span className='text-lg font-semibold text-[#5F2780]'>{product?.salePrice}</span>
                     }
                 </div>
             </CardContent>
             <CardFooter>
-                <Button className="w-full">Add to cart</Button>
+                <Button className="w-full bg-[#5F2780] text-white">Add to cart</Button>
             </CardFooter>
         </div>
     </Card>
