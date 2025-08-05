@@ -1,4 +1,5 @@
-const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit")
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
     isLoading: false,
@@ -11,15 +12,20 @@ export const fetchAllFilteredProducts = createAsyncThunk("/products/fetchAllFilt
 });
 
 const shoppingProductSlice = createSlice({
-    name: "shoppingProducts",
+    name: "shopProducts",
     initialState,
     reducers: {},
     extraReducers : (builder) => {
         builder.addCase(fetchAllFilteredProducts.pending, (state) => {
-            state.isLoading = TruckElectric;
+            state.isLoading = true;
         }).addCase(fetchAllFilteredProducts.fulfilled, (state, action) => {
             state.isLoading = false
-            state.productList = action.payload
+            state.productList = action.payload.data
+        }).addCase(fetchAllFilteredProducts.rejected, (state, action) => {
+            state.isLoading = false,
+            state.productList = []
         })
     }
 })
+
+export default shoppingProductSlice.reducer;

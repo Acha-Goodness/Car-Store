@@ -12,7 +12,7 @@ const ProductFilter = () => {
         </div>
         <div className='p-4 space-y-4'>
             {Object.keys(filterOptions).map(keyItem => 
-            <Fragment>
+            <Fragment key={filterOptions.id}>
                 <div>
                     <h3 className='text-base font-bold'>{keyItem}</h3>
                     <div className='grid gap-2 mt-2'>

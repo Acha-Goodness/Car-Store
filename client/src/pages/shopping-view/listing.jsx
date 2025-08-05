@@ -1,11 +1,21 @@
 import ProductFilter from '@/components/shopping-view/filter';
-import React from 'react'
+import { useEffect } from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Button } from '@/components/ui/button';
 import { LuArrowUpDown } from "react-icons/lu";
 import { sortOptions } from '@/components/config';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllFilteredProducts } from '@/store/shop/products-slice';
+
 
 const ShoppingListing = () => {
+  const dispatch = useDispatch()
+  const { isLoading, productList } = useSelector((state) => state.shopProducts);
+
+  useEffect(() => {
+    dispatch(fetchAllFilteredProducts());
+  }, [dispatch]);
+
   return (
     <div className='grid grid-cols-1 md:grid-cols-[300px_1fr] gap-6 p-4 md:p-6'>
       <ProductFilter/>
