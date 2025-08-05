@@ -1,5 +1,5 @@
 import ProductFilter from '@/components/shopping-view/filter';
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Button } from '@/components/ui/button';
 import { LuArrowUpDown } from "react-icons/lu";
@@ -12,19 +12,45 @@ import ShoppingPoductTile from '@/components/shopping-view/product-tile';
 const ShoppingListing = () => {
   const dispatch = useDispatch()
   const { isLoading, productList } = useSelector((state) => state.shopProducts);
+  const [ filters, setFilters ] = useState({});
+  const [ sort, setSort ] = useState();
+
+  const handleSort = (value) => {
+    console.log(value)
+    setSort(value)
+  }
+
+  const handleFilter = (getSectionId, getCurrentOption) => {
+    let cpyFilters = {...filters};
+    const indexOfCurrentSection = Object.keys(cpyFilters).indexOf(getSectionId);
+
+    if(indexOfCurrentSection === -1){
+      cpyFilters = {
+        ...cpyFilters,
+        [getSectionId] : [getCurrentOption]
+      }
+    }else{
+      const indexOfCurrentOption = cpyFilters[getSectionId].indexOf(getCurrentOption);
+      if(indexOfCurrentOption === -1) cpyFilters[getSectionId].push(getCurrentOption)
+      else cpyFilters[getSectionId].splice(indexOfCurrentOption, 1)
+    }
+    setFilters(cpyFilters);
+  }
 
   useEffect(() => {
     dispatch(fetchAllFilteredProducts());
   }, [dispatch]);
 
+  console.log(filters)
+
   return (
     <div className='grid grid-cols-1 md:grid-cols-[300px_1fr] gap-6 p-4 md:p-6'>
-      <ProductFilter/>
+      <ProductFilter filters={filters} handleFilter={handleFilter}/>
       <div className='bg-background w-full rounded-lg shadow-sm'>
         <div className='p-4 border-b flex gap-3 items-center justify-between'>
           <h2 className='text-lg font-extrabold'>All Products</h2>
           <div className='flex items-center gap-3'>
-            <span className='text-muted-[green]'>10 Products</span>
+            <span className='text-muted-[green]'>{productList?.length}</span>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" size="sm" className="flex items-center gap-1">
@@ -33,10 +59,10 @@ const ShoppingListing = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className='w-[200px]'>
-                  <DropdownMenuRadioGroup>
+                  <DropdownMenuRadioGroup value={sort} onValueChange={handleSort}>
                     {
                       sortOptions.map((sortItem) => (
-                        <DropdownMenuRadioItem key={sortItem.id}>
+                        <DropdownMenuRadioItem key={sortItem.id} value={sortItem.id}>
                             {sortItem.label}
                         </DropdownMenuRadioItem>
                       ))
