@@ -188,6 +188,23 @@
         ],
     }
 
+    export const categoryOptionMap = {
+        men : "Men",
+        women : "Women",
+        kids  : "Kids",   
+        accessories : "Accessories",
+        footwear : 'Footwear'
+    }
+
+      export const brandOptionMap = {
+        nike : "Nike",
+        addidas : "Addidas",
+        puma : "Puma",
+        levi : 'Levi',
+        zara : "Zara",
+        "h&m" : "H&M"
+    }
+
     export const sortOptions = [
         {id: "price-lowtohigh", label: "Price: Low to High"},
         {id: "price-hightolow", label: "Price: High to lOW"},
