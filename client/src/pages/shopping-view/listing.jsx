@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { LuArrowUpDown } from "react-icons/lu";
 import { sortOptions } from '@/components/config';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllFilteredProducts } from '@/store/shop/products-slice';
+import { fetchAllFilteredProducts, fetchProductsDetails } from '@/store/shop/products-slice';
 import ShoppingPoductTile from '@/components/shopping-view/product-tile';
 import { useSearchParams } from 'react-router-dom';
 
@@ -17,13 +17,13 @@ const createSearchParamsHelper = (filterParams) => {
       queryParams.push(`${key}=${encodeURIComponent(paramValue)}`)
     }
   }
-  console.log(queryParams);
   return queryParams.join("&")
 }
 
 const ShoppingListing = () => {
   const dispatch = useDispatch()
-  const { isLoading, productList } = useSelector((state) => state.shopProducts);
+  const { isLoading, productList, producDetails } = useSelector((state) => state.shopProducts);
+
   const [ filters, setFilters ] = useState({});
   const [ sort, setSort ] = useState();
   const [ searchParams, setSearchParams ] = useSearchParams();
@@ -50,6 +50,10 @@ const ShoppingListing = () => {
     sessionStorage.setItem("filters", JSON.stringify(cpyFilters))
   }
 
+  const handleGetProductDetails = (id) => {
+    dispatch(fetchProductsDetails(id))
+  }
+
   useEffect(() => {
     setSort("price-lowtohigh");
     setFilters(JSON.parse(sessionStorage.getItem("filters")) || [])
@@ -63,11 +67,11 @@ const ShoppingListing = () => {
   }, [filters])
 
   useEffect(() => {
-    dispatch(fetchAllFilteredProducts());
-  }, [dispatch]);
+    if(filters !== null && sort !== null)
+    dispatch(fetchAllFilteredProducts({filterParams : filters, sortParams : sort}));
+  }, [dispatch, sort, filters]);
 
-  console.log(filters)
-
+  console.log(producDetails)
 
   return (
     <div className='grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6 p-4 md:p-6'>
@@ -101,7 +105,7 @@ const ShoppingListing = () => {
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4'>
             {
               productList && productList.length > 0 && 
-              productList.map(productItem => <ShoppingPoductTile product={productItem}/>)
+              productList.map(productItem => <ShoppingPoductTile handleGetProductDetails={handleGetProductDetails} product={productItem}/>)
             }
         </div>
       </div>

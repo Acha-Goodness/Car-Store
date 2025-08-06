@@ -4,10 +4,10 @@ import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { brandOptionMap, categoryOptionMap } from '../config';
 
-const ShoppingPoductTile = ({ product }) => {
+const ShoppingPoductTile = ({ product, handleGetProductDetails }) => {
   return (
-    <Card>
-        <div>
+    <Card className="cursor-pointer">
+        <div onClick={() => handleGetProductDetails(product._id)}>
             <div className='relative'>
                 <img src={product.image} alt={product.title} className='w-full h-[300px] object-cover rounded-t-lg'/>
                 {product?.salePrice > 0 ? 
