@@ -47,6 +47,23 @@ exports.getFilterProducts = catchAsync (async(req, res, next) => {
         })
     }catch(e){
         console.log(e);
-        return next(new AppError("Some error occured",500, res))
+        return next(new AppError("Some error occured", 500, res))
     }
 });
+
+exports.getProductDetails = catchAsync (async(req, res, next) => {
+    try{
+        const { id } = req.params;
+        const product = await Product.findById(id);
+
+        if(!product) return next(new AppError("Product not found", 400, res))
+
+        res.status(200).json({
+            success: true,
+            data: product,
+        });
+    }catch(e){
+        console.log(e)
+        return next(new AppError("Some error occured", 500, res))
+    }
+})
