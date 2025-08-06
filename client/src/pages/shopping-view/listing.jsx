@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllFilteredProducts, fetchProductsDetails } from '@/store/shop/products-slice';
 import ShoppingPoductTile from '@/components/shopping-view/product-tile';
 import { useSearchParams } from 'react-router-dom';
+import ProductDetailsDialog from '@/components/shopping-view/product-details';
 
 const createSearchParamsHelper = (filterParams) => {
   const queryParams = [];
@@ -22,11 +23,12 @@ const createSearchParamsHelper = (filterParams) => {
 
 const ShoppingListing = () => {
   const dispatch = useDispatch()
-  const { isLoading, productList, producDetails } = useSelector((state) => state.shopProducts);
+  const { isLoading, productList, productDetails } = useSelector((state) => state.shopProducts);
 
   const [ filters, setFilters ] = useState({});
   const [ sort, setSort ] = useState();
   const [ searchParams, setSearchParams ] = useSearchParams();
+  const [ openDetailsDialog, setOpenDetailsDialog ] = useState(false);
 
   const handleSort = (value) => {
     setSort(value)
@@ -71,7 +73,9 @@ const ShoppingListing = () => {
     dispatch(fetchAllFilteredProducts({filterParams : filters, sortParams : sort}));
   }, [dispatch, sort, filters]);
 
-  console.log(producDetails)
+  useEffect(() => {
+    if(productDetails !== null) setOpenDetailsDialog(true);
+  },[productDetails])
 
   return (
     <div className='grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6 p-4 md:p-6'>
@@ -109,6 +113,7 @@ const ShoppingListing = () => {
             }
         </div>
       </div>
+      <ProductDetailsDialog open={openDetailsDialog} setOpen={setOpenDetailsDialog} productDetils={productDetails}/>
     </div>
   )
 }

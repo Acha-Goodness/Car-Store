@@ -4,7 +4,7 @@ import axios from "axios";
 const initialState = {
     isLoading: false,
     productList: [],
-    producDetails: null
+    productDetails: null
 }
 
 export const fetchAllFilteredProducts = createAsyncThunk("/products/fetchAllFilteredProducts", async ({filterParams, sortParams}) => {
@@ -40,10 +40,10 @@ const shoppingProductSlice = createSlice({
             state.isLoading = true;
         }).addCase(fetchProductsDetails.fulfilled, (state, action) => {
             state.isLoading = false
-            state.producDetails = action.payload.data
+            state.productDetails = action.payload.data
         }).addCase(fetchProductsDetails.rejected, (state, action) => {
             state.isLoading = false,
-            state.producDetails = null
+            state.productDetails = null
         })
     }
 })
