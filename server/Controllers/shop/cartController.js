@@ -7,10 +7,7 @@ const catchAsync = require("../../Utils/catchAsync");
 exports.addToCart = catchAsync(async (req, res, next) => {
     try{
         const { userId, productId, quantity } = req.body;
-
-        if(!userId || !productId || quantity <= 0){
-            return next(new AppError("Invalid data provided!", 400,res))
-        } 
+        if(!userId || !productId || quantity <= 0) return next(new AppError("Invalid data provided!", 400, res))
 
         const product = await Product.findById(productId);
         if(!product) return next(new AppError("Product not found", 404, res));
@@ -99,10 +96,10 @@ exports.updateCartItemQty = catchAsync(async (req, res, next) => {
 
         const populateCartItems = cart.items.map(item => ({
             productId: item.productId ? item.productId._id : null,
-            image: item.image ? item.productId.image : null,
-            title: item.title ? item.productId.title : "Product not found",
-            price: item.price ? item.productId.price : null,
-            salePrice: item.salePrice ? item.productId.salePrice : null,
+            image: item.productId ? item.productId.image : null,
+            title: item.productId ? item.productId.title : "Product not found",
+            price: item.productId ? item.productId.price : null,
+            salePrice: item.productId ? item.productId.salePrice : null,
             quantity: item.quantity
         }));
 
@@ -122,6 +119,40 @@ exports.updateCartItemQty = catchAsync(async (req, res, next) => {
 
 exports.deleteCartItem = catchAsync(async (req, res, next) => {
     try{
+        const { userId, productId } = req.body;
+        if(!userId || !productId ) return next(new AppError("Invalid data provided!", 400, res));
+
+        const cart = await Cart.findOne({userId}).populate({
+            path: "items.productId",
+            select: "image title price salePrice"
+        });
+
+        if(!cart) return next(new AppError("cart not found", 404, res));
+        cart.items = cart.items.filter( item => item.productId._id.toString() !== productId)
+
+        await cart.save();
+
+        await Cart.populate({
+            path: "items.productId",
+            select: "image title price salePrice"
+        });
+
+        const populateCartItems = cart.items.map(item => ({
+            productId: item.productId ? item.productId._id : null,
+            image: item.productId ? item.productId.image : null,
+            title: item.productId ? item.productId.title : "Product not found",
+            price: item.productId ? item.productId.price : null,
+            salePrice: item.productId ? item.productId.salePrice : null,
+            quantity: item.quantity
+        }));
+
+        res.status(200).json({
+            success: true,
+            data: {
+                ...cart._doc,
+                items: populateCartItems,
+            }
+        })
 
     }catch(err){
         console.log(err);
