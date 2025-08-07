@@ -2,7 +2,8 @@ import React from 'react';
 import { Dialog, DialogContent } from '../ui/dialog';
 import { Button } from '../ui/button';
 import { Separator } from '../ui/separator';
-import { AvatarFallback } from '@radix-ui/react-avatar';
+import { Avatar, AvatarFallback } from '../ui/avatar';
+import { MdOutlineStar } from "react-icons/md";
 
 const ProductDetailsDialog = ({open, setOpen, productDetils}) => {
     
@@ -27,6 +28,16 @@ const ProductDetailsDialog = ({open, setOpen, productDetils}) => {
                     <p className={`text-3xl font-bold text-black ${productDetils?.salePrice > 0 && "line-through"}`}>{productDetils?.price}</p>
                     {productDetils?.salePrice > 0 && <p className='text-2xl font-bold text-muted-[grey]'>{productDetils?.salePrice}</p>}
                 </div>
+                <div className='flex items-center gap-2 mt-2'>
+                    <div className='flex items-center gap-0.5'>
+                        <MdOutlineStar className='w-5 h-5 fill-[black]'/>
+                        <MdOutlineStar className='w-5 h-5 fill-[black]'/>
+                        <MdOutlineStar className='w-5 h-5 fill-[black]'/>
+                        <MdOutlineStar className='w-5 h-5 fill-[black]'/>
+                        <MdOutlineStar className='w-5 h-5 fill-[black]'/>
+                    </div>
+                    <span className='text-muted-[grey]'>(4.5)</span>
+                </div>
                 <div className='my-5'>
                     <Button className="w-full bg-black text-white">Add to Cart</Button>
                 </div>
@@ -42,6 +53,14 @@ const ProductDetailsDialog = ({open, setOpen, productDetils}) => {
                                 <div className='flex items-center gap-2'>
                                     <h3 className='font-bold'>Angela Smith</h3>
                                 </div>
+                                <div className='flex items-center gap-0.5'>
+                                    <MdOutlineStar className='w-5 h-5 fill-[black]'/>
+                                    <MdOutlineStar className='w-5 h-5 fill-[black]'/>
+                                    <MdOutlineStar className='w-5 h-5 fill-[black]'/>
+                                    <MdOutlineStar className='w-5 h-5 fill-[black]'/>
+                                    <MdOutlineStar className='w-5 h-5 fill-[black]'/>
+                                </div>
+                                <p className='text-muted-[grey]'>This is an awesome product</p>
                             </div>
                         </div>
                     </div>
