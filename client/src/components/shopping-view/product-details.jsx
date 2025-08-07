@@ -4,6 +4,7 @@ import { Button } from '../ui/button';
 import { Separator } from '../ui/separator';
 import { Avatar, AvatarFallback } from '../ui/avatar';
 import { MdOutlineStar } from "react-icons/md";
+import { Input } from '../ui/input';
 
 const ProductDetailsDialog = ({open, setOpen, productDetils}) => {
     
@@ -63,6 +64,46 @@ const ProductDetailsDialog = ({open, setOpen, productDetils}) => {
                                 <p className='text-muted-[grey]'>This is an awesome product</p>
                             </div>
                         </div>
+                        <div className='flex gap-4'>
+                            <Avatar className="w-10 h-10 border">
+                                <AvatarFallback>SM</AvatarFallback>
+                            </Avatar>
+                            <div className='grid gap-1'>
+                                <div className='flex items-center gap-2'>
+                                    <h3 className='font-bold'>Angela Smith</h3>
+                                </div>
+                                <div className='flex items-center gap-0.5'>
+                                    <MdOutlineStar className='w-5 h-5 fill-[black]'/>
+                                    <MdOutlineStar className='w-5 h-5 fill-[black]'/>
+                                    <MdOutlineStar className='w-5 h-5 fill-[black]'/>
+                                    <MdOutlineStar className='w-5 h-5 fill-[black]'/>
+                                    <MdOutlineStar className='w-5 h-5 fill-[black]'/>
+                                </div>
+                                <p className='text-muted-[grey]'>This is an awesome product</p>
+                            </div>
+                        </div>
+                        <div className='flex gap-4'>
+                            <Avatar className="w-10 h-10 border">
+                                <AvatarFallback>SM</AvatarFallback>
+                            </Avatar>
+                            <div className='grid gap-1'>
+                                <div className='flex items-center gap-2'>
+                                    <h3 className='font-bold'>Angela Smith</h3>
+                                </div>
+                                <div className='flex items-center gap-0.5'>
+                                    <MdOutlineStar className='w-5 h-5 fill-[black]'/>
+                                    <MdOutlineStar className='w-5 h-5 fill-[black]'/>
+                                    <MdOutlineStar className='w-5 h-5 fill-[black]'/>
+                                    <MdOutlineStar className='w-5 h-5 fill-[black]'/>
+                                    <MdOutlineStar className='w-5 h-5 fill-[black]'/>
+                                </div>
+                                <p className='text-muted-[grey]'>This is an awesome product</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='mt-6 flex gap-2'>
+                        <Input placeholder="Write a review..."/>
+                        <Button>Submit</Button>
                     </div>
                   </div>
             </div>
