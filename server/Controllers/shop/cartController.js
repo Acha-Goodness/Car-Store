@@ -35,6 +35,38 @@ exports.addToCart = catchAsync(async (req, res, next) => {
 
 exports.fetchCartItems = catchAsync(async (req, res, next) => {
     try{
+        const { userId } = req.params;
+        if(userId) return next(new AppError("User Id is required", 400, res));
+
+        const cart = await Cart.findOne({userId}).populate({
+            path: "item.productId",
+            select: "image title price salePrice"
+        })
+
+        if(!cart) return next(new AppError("Cart not found", 404, res))
+        const validItems = cart.items.filter(productItem => productItem.productId);
+
+        if(validItems.length < cart.items.length){
+            cart.items = validItems
+            await cart.save()
+        }
+
+        const populateCartItems = validItems.map(item => ({
+            productId: item.productId,
+            image: item.image,
+            title: item.title,
+            price: item.price,
+            salePrice: item.salePrice,
+            quantity: item.quantity
+        }))
+
+        res.status(200).json({
+            success: true,
+            data: {
+                ...cart._doc,
+                items: populateCartItems
+            }
+        })
 
     }catch(err){
         console.log(err);
