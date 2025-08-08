@@ -39,6 +39,14 @@ const shoppingCartSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-
+        builder.addCase(addToCart.pending, (state) => {
+            state.isLoading = true
+        }).addCase(addToCart.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.cartItems = action.payload.data
+        }).addCase(addToCart.rejected, (state) => {
+            state.isLoading = false
+            cartItems = []
+        })
     }
 })
