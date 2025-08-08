@@ -15,9 +15,15 @@ export const addToCart = createAsyncThunk("/cart/addToCart", async({userId, prod
 }) 
 
 export const fetchCartItems = createAsyncThunk("/cart/fetchCartItems", async({userId}) => {
-    const response = await axios.get(`http://localhost:3000/api/v1/shop/cart/get/${ userId }`)
+    const response = await axios.get(`http://localhost:3000/api/v1/shop/cart/get/${userId}`)
     return response.data
 }) 
+
+export const deleteCartItems = createAsyncThunk("/cart/deleteCartItems", async({userId, productId}) => {
+    const response = await axios.delete(`http://localhost:3000/api/v1/shop/cart/${userId}/${productId}`)
+    return response.data
+}) 
+ 
 
 const shoppingCartSlice = createSlice({
     name: "shoppingCart",
