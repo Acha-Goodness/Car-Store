@@ -11,10 +11,16 @@ import { SiGnuprivacyguard } from "react-icons/si";
 import { BsBasket2 } from "react-icons/bs";
 import { IoCard } from "react-icons/io5";
 import { GoStopwatch } from "react-icons/go";
+import { Avatar, AvatarFallback } from '../ui/avatar';
+import { useSelector } from 'react-redux';
+import { Sheet } from '../ui/sheet';
+import UserCartWrapper from './cart-wrapper';
 
 const Header = () => {
   const [ accSub, setAccSub ] = useState(false);
   const [ helpSub, setHelpSub ] = useState(false);
+  const { user } = useSelector(state => state.auth);
+  const [ openCartSheet, setOpenCartSheet ] = useState(false);
 
   const toggleAccMenu = () => {
     setAccSub(!accSub);
@@ -50,7 +56,7 @@ const Header = () => {
                             <Input type="text" placeholder='Search services or product' className="text-[#5F2780]"/>
                             <CiSearch className='ml-[1%] text-[30px] text-[#5F2780] cursor-pointer'/>
                         </div>
-                        <div className='flex justify-between w-[30%]'>
+                        <div className='flex justify-around w-[30%]'>
                             <div>
                                 <Button className="w-full bg-[#5F2780] text-white cursor-pointer" onClick={toggleAccMenu}><MdPerson4 />Account <MdKeyboardArrowDown/></Button>
                                 <nav className={`absolute bg-[white] p-[10px] w-[10%] right-[14.5%] rounded-[5px] z-[-1] ease-in-out ${accSub ? "top-[22%] opacity-100 duration-300" : "top-[-50%] opacity-0 duration-100"}`}>
@@ -75,7 +81,19 @@ const Header = () => {
                                     </ul>
                                 </nav>
                             </div>
-                            <Button className="w-[30%] bg-transperent text-[#5F2780] cursor-pointer"><MdOutlineShoppingCart />Cart</Button>
+                            <div className='flex items-center gap-2'>
+                                <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
+                                    <Button variant="outline" size="icon" onClick={() => setOpenCartSheet(true)}>
+                                        <MdOutlineShoppingCart className='cursor-pointer' />
+                                    </Button>
+                                    <UserCartWrapper/>
+                                </Sheet>
+                                <Avatar className="bg-black">
+                                    <AvatarFallback className="bg-black text-white font-extrabold cursor-pointer">
+                                        {user?.user?.name[0].toUpperCase()}
+                                    </AvatarFallback>
+                                </Avatar>
+                            </div>
                         </div>
                     </div>
                 </div>
