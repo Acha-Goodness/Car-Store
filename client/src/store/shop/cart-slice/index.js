@@ -1,14 +1,24 @@
-const { createSlice } = require("@reduxjs/toolkit");
+const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 const initialState = {
+    cartItems: [],
     isLoading: false
 }
+
+export const addToCart = createAsyncThunk("/cart/addToCart", async({userId, productId, quantity}) => {
+    const response = await axios.post("http://localhost:3000/api/v1/shop/cart/add", {
+        userId,
+        productId,
+        quantity
+    })
+    return response.data
+}) 
 
 const shoppingCartSlice = createSlice({
     name: "shoppingCart",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        
+
     }
 })
