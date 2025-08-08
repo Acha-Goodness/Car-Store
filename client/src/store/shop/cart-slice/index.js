@@ -1,4 +1,4 @@
-const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
     cartItems: [],
@@ -35,7 +35,7 @@ export const deleteCartItems = createAsyncThunk("/cart/deleteCartItems", async({
  
 
 const shoppingCartSlice = createSlice({
-    name: "shoppingCart",
+    name: "shopCart",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
@@ -75,3 +75,4 @@ const shoppingCartSlice = createSlice({
     }
 })
 
+export default shoppingCartSlice.reducer
