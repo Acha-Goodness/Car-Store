@@ -12,7 +12,7 @@ exports.addToCart = catchAsync(async (req, res, next) => {
         const product = await Product.findById(productId);
         if(!product) return next(new AppError("Product not found", 404, res));
 
-        let cart = Cart.findOne({ userId });
+        let cart = await Cart.findOne({ userId });
         if(!cart) cart = new Cart({userId, items : []});
 
         const findCurrentProductIndex = cart.items.findIndex(item => item.productId.toString() === productId);
@@ -22,21 +22,22 @@ exports.addToCart = catchAsync(async (req, res, next) => {
         await cart.save();
         res.status(200).json({
             success: true,
-            data: cart
+            data: cart,
+            message: "Product added to cart"
         })
     }catch(err){
         console.log(err);
-        return next(new AppError("Error", 500, res))
+        return next(new AppError("Error", 500, res));
     }
 })
 
 exports.fetchCartItems = catchAsync(async (req, res, next) => {
     try{
         const { userId } = req.params;
-        if(userId) return next(new AppError("User Id is required", 400, res));
+        if(!userId) return next(new AppError("User Id is required", 400, res));
 
         const cart = await Cart.findOne({userId}).populate({
-            path: "item.productId",
+            path: "items.productId",
             select: "image title price salePrice"
         })
 
@@ -108,7 +109,8 @@ exports.updateCartItemQty = catchAsync(async (req, res, next) => {
             data: {
                 ...cart._doc,
                 items: populateCartItems,
-            }
+            },
+            message: "Cart item is updated successfully"
         })
         
     }catch(err){
@@ -119,7 +121,8 @@ exports.updateCartItemQty = catchAsync(async (req, res, next) => {
 
 exports.deleteCartItem = catchAsync(async (req, res, next) => {
     try{
-        const { userId, productId } = req.body;
+        const { userId, productId } = req.params;
+
         if(!userId || !productId ) return next(new AppError("Invalid data provided!", 400, res));
 
         const cart = await Cart.findOne({userId}).populate({
@@ -132,7 +135,7 @@ exports.deleteCartItem = catchAsync(async (req, res, next) => {
 
         await cart.save();
 
-        await Cart.populate({
+        await cart.populate({
             path: "items.productId",
             select: "image title price salePrice"
         });
@@ -151,11 +154,12 @@ exports.deleteCartItem = catchAsync(async (req, res, next) => {
             data: {
                 ...cart._doc,
                 items: populateCartItems,
-            }
+            },
+            message: "Cart item deleted"
         })
 
     }catch(err){
         console.log(err);
-        return next(new AppError("Error", 500, res))
+        return next(new AppError("Error", 500, res));
     }
 })

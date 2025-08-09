@@ -4,7 +4,7 @@ const Product = require("../../Models/productModel");
 
 exports.getFilterProducts = catchAsync (async(req, res, next) => {
     try{
-        const { category = [], brand = [], sortBy="price-lowtohigh" } = req.query;
+        const { category = [], brand = [], sortBy=""} = req.query;
         let filters = {};
         
         if(category.length){
@@ -20,7 +20,7 @@ exports.getFilterProducts = catchAsync (async(req, res, next) => {
         switch (sortBy){
             case "price-lowtohigh":
                 sort.price = 1
-                
+
             break;
                 case "price-hightolow":
                 sort.price = -1
