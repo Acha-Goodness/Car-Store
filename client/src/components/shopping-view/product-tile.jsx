@@ -3,8 +3,9 @@ import { Card, CardContent, CardFooter } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { brandOptionMap, categoryOptionMap } from '../config';
+import { MoonLoader } from 'react-spinners';
 
-const ShoppingPoductTile = ({ product, handleGetProductDetails }) => {
+const ShoppingPoductTile = ({ product, handleGetProductDetails, handleAddToCart, isLoading }) => {
   return (
     <Card className="cursor-pointer">
         <div onClick={() => handleGetProductDetails(product._id)}>
@@ -28,10 +29,13 @@ const ShoppingPoductTile = ({ product, handleGetProductDetails }) => {
                     }
                 </div>
             </CardContent>
-            <CardFooter>
-                <Button className="w-full bg-[#5F2780] text-white">Add to cart</Button>
-            </CardFooter>
         </div>
+            <CardFooter>
+                <Button onClick={() => handleAddToCart(product._id)} className="w-full bg-[#5F2780] text-white">
+                    {/* {isLoading && <MoonLoader color="#ffffff" size={20} />} */}
+                    {"Add to cart"}
+                </Button>
+            </CardFooter>
     </Card>
   )
 }

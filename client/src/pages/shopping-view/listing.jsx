@@ -9,6 +9,9 @@ import { fetchAllFilteredProducts, fetchProductsDetails } from '@/store/shop/pro
 import ShoppingPoductTile from '@/components/shopping-view/product-tile';
 import { useSearchParams } from 'react-router-dom';
 import ProductDetailsDialog from '@/components/shopping-view/product-details';
+import { addToCart, fetchCartItems } from '@/store/shop/cart-slice';
+import { toast } from 'sonner';
+import { MoonLoader } from 'react-spinners';
 
 const createSearchParamsHelper = (filterParams) => {
   const queryParams = [];
@@ -23,7 +26,9 @@ const createSearchParamsHelper = (filterParams) => {
 
 const ShoppingListing = () => {
   const dispatch = useDispatch()
-  const { isLoading, productList, productDetails } = useSelector((state) => state.shopProducts);
+  const { user } = useSelector((state) => state.auth)
+  const { productList, productDetails, isLoading} = useSelector((state) => state.shopProducts);
+  const { isLoading: loading } = useSelector((state) => state.shopCart)
 
   const [ filters, setFilters ] = useState({});
   const [ sort, setSort ] = useState();
@@ -55,6 +60,18 @@ const ShoppingListing = () => {
   const handleGetProductDetails = (id) => {
     dispatch(fetchProductsDetails(id))
   }
+
+  const handleAddToCart = (productId) => {
+    dispatch(addToCart({userId: user?.user._id, productId, quantity: 1}))
+    .then((res) => {
+      if(res?.payload?.success){
+        toast(res.payload.message)
+        dispatch(fetchCartItems(user?.user._id))
+      }else throw new Error(res.paylaod)
+    }).catch((err) => {
+      console.log(err);
+    })
+  };
 
   useEffect(() => {
     setSort("price-lowtohigh");
@@ -106,12 +123,18 @@ const ShoppingListing = () => {
               </DropdownMenu>
           </div>
         </div>
+        {isLoading ? 
+        <div className='w-full h-[30vh] flex justify-center items-center'>
+          <MoonLoader color="#620071ff" size={80} />
+        </div> 
+        :
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4'>
             {
               productList && productList.length > 0 && 
-              productList.map(productItem => <ShoppingPoductTile handleGetProductDetails={handleGetProductDetails} product={productItem}/>)
+              productList.map(productItem => <ShoppingPoductTile handleGetProductDetails={handleGetProductDetails} product={productItem} handleAddToCart={handleAddToCart} isLoading={isLoading}/>)
             }
         </div>
+        }
       </div>
       <ProductDetailsDialog open={openDetailsDialog} setOpen={setOpenDetailsDialog} productDetils={productDetails}/>
     </div>

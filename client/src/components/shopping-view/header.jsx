@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import heroVid from "../../assets/heroVid.webm";
 import logoo from "../../assets/logoo.png";
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
-import { MdPerson4, MdKeyboardArrowDown, MdQuestionMark, MdOutlineShoppingCart, MdCancelScheduleSend} from "react-icons/md";
+import { MdPerson4, MdKeyboardArrowDown, MdQuestionMark, MdOutlineShoppingCart, MdCancelScheduleSend } from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
 import { FaBoxOpen, FaHandsHelping } from "react-icons/fa";
 import { GiSelfLove, GiReturnArrow } from "react-icons/gi";
@@ -12,15 +12,18 @@ import { BsBasket2 } from "react-icons/bs";
 import { IoCard } from "react-icons/io5";
 import { GoStopwatch } from "react-icons/go";
 import { Avatar, AvatarFallback } from '../ui/avatar';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Sheet } from '../ui/sheet';
 import UserCartWrapper from './cart-wrapper';
+import { fetchCartItems } from '@/store/shop/cart-slice';
 
 const Header = () => {
   const [ accSub, setAccSub ] = useState(false);
   const [ helpSub, setHelpSub ] = useState(false);
   const { user } = useSelector(state => state.auth);
+  const { cartItems } = useSelector((state) => state.shopCart);
   const [ openCartSheet, setOpenCartSheet ] = useState(false);
+  const dispatch = useDispatch();
 
   const toggleAccMenu = () => {
     setAccSub(!accSub);
@@ -32,6 +35,10 @@ const Header = () => {
     setAccSub(false);
   };
 
+  useEffect(() => {
+    dispatch(fetchCartItems(user?.user._id))
+  }, [dispatch])
+
   return (
     <div>
         <video className="absolute top-0 left-0 w-full h-[80%] object-cover"
@@ -40,7 +47,7 @@ const Header = () => {
             loop
             playsInline
         >
-             <source src={heroVid} type="video/webm" ></source>
+             <source src={heroVid} type="video/webm"></source>
         </video>
         <div className="relative z-10">
             <div>
@@ -86,7 +93,7 @@ const Header = () => {
                                     <Button variant="outline" size="icon" onClick={() => setOpenCartSheet(true)}>
                                         <MdOutlineShoppingCart className='cursor-pointer' />
                                     </Button>
-                                    <UserCartWrapper/>
+                                    {cartItems && <UserCartWrapper cartItems={cartItems ? cartItems.items : []}/>}
                                 </Sheet>
                                 <Avatar className="bg-black">
                                     <AvatarFallback className="bg-black text-white font-extrabold cursor-pointer">
