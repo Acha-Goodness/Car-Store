@@ -5,9 +5,26 @@ import { Separator } from '../ui/separator';
 import { Avatar, AvatarFallback } from '../ui/avatar';
 import { MdOutlineStar } from "react-icons/md";
 import { Input } from '../ui/input';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, fetchCartItems } from '@/store/shop/cart-slice';
+import { toast } from 'sonner';
 
 const ProductDetailsDialog = ({open, setOpen, productDetils}) => {
-    
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch(); 
+
+  const handleAddToCart = (productId) => {
+    dispatch(addToCart({userId: user?.user._id, productId, quantity: 1}))
+    .then((res) => {
+      if(res?.payload?.success){
+        toast(res.payload.message)
+        dispatch(fetchCartItems(user?.user._id))
+      }else throw new Error(res.paylaod)
+    }).catch((err) => {
+      console.log(err);
+    });
+  };
+  
   return (
     <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="grid grid-cols-2 gap-8 bg-white sm:p-12 max-w-[90vw] sm:max-w-[80vw] lg:max-w-[70vw]">
@@ -40,7 +57,7 @@ const ProductDetailsDialog = ({open, setOpen, productDetils}) => {
                     <span className='text-muted-[grey]'>(4.5)</span>
                 </div>
                 <div className='my-5'>
-                    <Button className="w-full bg-black text-white">Add to Cart</Button>
+                    <Button className="w-full bg-black text-white" onClick={() => handleAddToCart(productDetils?._id)}>Add to Cart</Button>
                 </div>
                   <Separator/>
                   <div className='max-h-[300px] overflow-auto'>
