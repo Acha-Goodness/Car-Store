@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Sheet } from '../ui/sheet';
 import UserCartWrapper from './cart-wrapper';
 import { fetchCartItems } from '@/store/shop/cart-slice';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [ accSub, setAccSub ] = useState(false);
@@ -66,25 +67,43 @@ const Header = () => {
                         <div className='flex justify-around w-[30%]'>
                             <div>
                                 <Button className="w-full bg-[#5F2780] text-white cursor-pointer" onClick={toggleAccMenu}><MdPerson4 />Account <MdKeyboardArrowDown/></Button>
-                                <nav className={`absolute bg-[white] p-[10px] w-[10%] right-[14.5%] rounded-[5px] z-[-1] ease-in-out ${accSub ? "top-[22%] opacity-100 duration-300" : "top-[-50%] opacity-0 duration-100"}`}>
+                                <nav className={`absolute bg-[white] p-[10px] w-[10%] right-[14.5%] rounded-[5px] ease-in-out ${accSub ? "top-[22%] opacity-100 duration-300" : "top-[-50%] opacity-0 duration-80"}`}>
                                     <Button className="w-full bg-[#5F2780] text-[white] cursor-pointer mb-[10px]"><SiGnuprivacyguard/>Sign In</Button>
                                     <ul className='text-[#5F2780]'>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><MdPerson4 className='mr-[15px] text-[25px]'/>My Account</li>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><FaBoxOpen className='mr-[15px] text-[25px]'/>Orders</li>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><GiSelfLove className='mr-[15px] text-[25px]'/>Whishlist</li>
+                                        <Link to="/shop/account">
+                                            <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><MdPerson4 className='mr-[15px] text-[25px]'/>My Account</li>
+                                        </Link>
+                                        <Link to="/shop/orders">
+                                            <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><FaBoxOpen className='mr-[15px] text-[25px]'/>Orders</li>
+                                        </Link>
+                                        <Link to="/shop/wishlist">
+                                            <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><GiSelfLove className='mr-[15px] text-[25px]'/>Whishlist</li>
+                                        </Link>
                                     </ul>
                                 </nav>
                             </div>
                             <div>
                                 <Button className="w-full bg-transperent text-[#5F2780] cursor-pointer" onClick={toggleHelpMenu}><MdQuestionMark />Help<MdKeyboardArrowDown/></Button>
-                                  <nav className={`absolute bg-[white] p-[10px] w-[13%] right-[1%] rounded-[5px] z-[-1] ease-in-out ${helpSub ? "top-[22%] opacity-100 duration-300" : "top-[-50%] opacity-0 duration-100"}`}>
+                                  <nav className={`absolute bg-[white] p-[10px] w-[13%] right-[1%] rounded-[5px] ease-in-out ${helpSub ? "top-[22%] opacity-100 duration-300" : "top-[-50%] opacity-0 duration-100"}`}>
                                     <ul className='text-[#5F2780]'>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><FaHandsHelping className='mr-[15px] text-[25px]'/>Help Center</li>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><BsBasket2 className='mr-[15px] text-[25px]'/>Place and order</li>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><IoCard className='mr-[15px] text-[25px]'/>Payment options</li>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><GoStopwatch className='mr-[15px] text-[25px]'/>Track and order</li>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><MdCancelScheduleSend className='mr-[15px] text-[25px]'/>Cancel and orders</li>
-                                        <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><GiReturnArrow className='mr-[15px] text-[25px]'/>Returns & Refunds</li>
+                                        <Link to="/shop/help-center">
+                                            <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><FaHandsHelping className='mr-[15px] text-[25px]'/>Help Center</li>
+                                        </Link>
+                                        <Link>
+                                            <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><BsBasket2 className='mr-[15px] text-[25px]'/>Place and order</li>
+                                        </Link>
+                                        <Link>
+                                            <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><IoCard className='mr-[15px] text-[25px]'/>Payment options</li>
+                                        </Link>
+                                        <Link>
+                                            <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><GoStopwatch className='mr-[15px] text-[25px]'/>Track and order</li>
+                                        </Link>
+                                        <Link>
+                                            <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><MdCancelScheduleSend className='mr-[15px] text-[25px]'/>Cancel and orders</li>
+                                        </Link>
+                                        <Link>
+                                            <li className='flex items-center px-[5px] py-[5px] mb-[3px] cursor-pointer'><GiReturnArrow className='mr-[15px] text-[25px]'/>Returns & Refunds</li>
+                                        </Link>
                                     </ul>
                                 </nav>
                             </div>
@@ -112,15 +131,27 @@ const Header = () => {
             <div className='w-[98%] mx-auto pt-[13%]'>
                 <nav>
                     <ul className='text-[white] flex justify-evenly'>
-                        <li>Hair Salon</li>
-                        <li>Barbershop</li>
-                        <li>Nail Salon</li>
-                        <li>Skin Care</li>
-                        <li>Brows & Lashes</li>
-                        <li>Massage</li>
-                        <li>Makeup</li>
-                        <li>Wellness & Day Spa</li>
-                        <li>Pedicure</li>
+                        <Link to="/shop/home">
+                               <li>Home</li>
+                        </Link>
+                        <Link to="/shop/listing">
+                            <li>Products</li>
+                        </Link>
+                        <Link to="/shop/services">
+                            <li>Services</li>
+                        </Link>
+                        <Link to="/shop/about">
+                            <li>About Us</li>
+                        </Link>
+                        <Link to="/shop/contact">
+                            <li>Contact</li>
+                        </Link>
+                        <Link to="/shop/gallery">
+                            <li>Gallery</li>
+                        </Link>
+                        <Link to="/shop/faq">
+                            <li>Faq</li>
+                        </Link>
                     </ul>
                 </nav>
             </div>

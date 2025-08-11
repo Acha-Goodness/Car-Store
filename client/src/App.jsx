@@ -25,6 +25,13 @@ import { toast } from "sonner";
 import { MoonLoader } from 'react-spinners';
 import { Skeleton } from "@/components/ui/skeleton"
 import logo from "./assets/logoo.png";
+import Orders from "./pages/shopping-view/orders";
+import Wishlist from "./pages/shopping-view/wishlist";
+import Services from "./pages/shopping-view/services";
+import AboutUs from "./pages/shopping-view/aboutUs";
+import Contact from "./components/shopping-view/contact";
+import Gallery from "./components/shopping-view/gallery";
+import Faq from "./components/shopping-view/faq";
 // import Header from "./components/shopping-view/header";
 
 function App() {
@@ -98,6 +105,13 @@ function App() {
                   <Route path="listing" element={<ShoppingListing/>}/>
                   <Route path="checkout" element={<ShoppingCheckout/>}/>
                   <Route path="account" element={<ShoppingAccount/>}/>
+                  <Route path="orders" element={<Orders/>}/>
+                  <Route path="wishlist" element={<Wishlist/>}/>
+                  <Route path="services" element={<Services/>}/>
+                  <Route path="about" element={<AboutUs/>}/>
+                  <Route path="contact" element={<Contact/>}/>
+                  <Route path="gallery" element={<Gallery/>}/>
+                  <Route path="faq" element={<Faq/>}/>
               </Route>
               <Route path="/unauth-page" element={<UnauthPage/>}/>
               <Route path="*" element={<NotFound/>}/>
