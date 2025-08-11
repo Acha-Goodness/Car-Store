@@ -29,9 +29,14 @@ import Orders from "./pages/shopping-view/orders";
 import Wishlist from "./pages/shopping-view/wishlist";
 import Services from "./pages/shopping-view/services";
 import AboutUs from "./pages/shopping-view/aboutUs";
-import Contact from "./components/shopping-view/contact";
-import Gallery from "./components/shopping-view/gallery";
-import Faq from "./components/shopping-view/faq";
+import Contact from "./pages/shopping-view/contact";
+import Gallery from "./pages/shopping-view/gallery";
+import Faq from "./pages/shopping-view/faq";
+import HelpCenter from "./pages/shopping-view/helpCenter";
+import PaymentOptions from "./pages/shopping-view/paymentOptions";
+import TrackOrder from "./pages/shopping-view/trackOrder";
+import CancelOrder from "./pages/shopping-view/cancelOrder";
+import ReturnRefunds from "./pages/shopping-view/returnRefunds";
 // import Header from "./components/shopping-view/header";
 
 function App() {
@@ -112,6 +117,11 @@ function App() {
                   <Route path="contact" element={<Contact/>}/>
                   <Route path="gallery" element={<Gallery/>}/>
                   <Route path="faq" element={<Faq/>}/>
+                  <Route path="help-center" element={<HelpCenter/>}/>
+                  <Route path="pay-options" element={<PaymentOptions/>}/>
+                  <Route path="track" element={<TrackOrder/>}/>
+                  <Route path="cancel-order" element={<CancelOrder/>}/>
+                  <Route path="return-refunds" element={<ReturnRefunds/>}/>
               </Route>
               <Route path="/unauth-page" element={<UnauthPage/>}/>
               <Route path="*" element={<NotFound/>}/>
