@@ -2,12 +2,11 @@ import { useState, useEffect} from 'react';;
 import logoo from "../../assets/logoo.png";
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
-import { MdPerson4, MdKeyboardArrowDown, MdQuestionMark, MdOutlineShoppingCart, MdCancelScheduleSend } from "react-icons/md";
+import { MdPerson4, MdKeyboardArrowDown, MdQuestionMark, MdCancelScheduleSend } from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
-import { FaBoxOpen, FaHandsHelping } from "react-icons/fa";
+import { FaBoxOpen, FaHandsHelping, FaOpencart } from "react-icons/fa";
 import { GiSelfLove, GiReturnArrow } from "react-icons/gi";
 import { SiGnuprivacyguard } from "react-icons/si";
-import { BsBasket2 } from "react-icons/bs";
 import { IoCard } from "react-icons/io5";
 import { GoStopwatch } from "react-icons/go";
 import { Avatar, AvatarFallback } from '../ui/avatar';
@@ -99,7 +98,7 @@ const TopHeader = () => {
                     <div className='flex items-center gap-2'>
                         <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
                             <Button variant="outline" size="icon" onClick={() => setOpenCartSheet(true)}>
-                                <MdOutlineShoppingCart className='cursor-pointer' />
+                                <FaOpencart className='cursor-pointer' />
                             </Button>
                             {cartItems && <UserCartWrapper cartItems={cartItems ? cartItems.items : []}/>}
                         </Sheet>

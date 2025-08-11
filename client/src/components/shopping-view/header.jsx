@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <div>
         <video 
-            className="absolute w-full h-[80%] object-cover"
+            className="absolute top-0 w-full h-[80%] object-cover"
             autoPlay
             muted
             loop
